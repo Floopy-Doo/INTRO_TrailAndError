@@ -1,8 +1,8 @@
+/.settings/*
+/Debug/*
+/Documentation/*
+/Generated_Code/*
 *.g_c
 *.g_x
 .cwGeneratedFileSetLog
-.settings/*
-Debug/*
-Documentation/*
-Generated_Code/*
 ProjectInfo.xml
