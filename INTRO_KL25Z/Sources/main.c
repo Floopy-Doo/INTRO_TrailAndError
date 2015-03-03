@@ -50,6 +50,18 @@ int main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
+
+  /**
+  \msc
+  arcgradient = 8;
+  a [label="Client"],b [label="Server"];
+  a-xb [label="get accel"];
+  a=>b [label="get accel"];
+  a<=b [label="ack"];
+  a<=b [label="accel data"];
+  \endmsc
+  */
+
   for(;;) {
 	  Bit1_NegVal();
   }
