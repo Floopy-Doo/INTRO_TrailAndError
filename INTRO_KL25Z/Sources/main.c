@@ -34,10 +34,14 @@
 #include "LED_Green.h"
 #include "LEDpin3.h"
 #include "BitIoLdd2.h"
+#include "TU1.h"
+#include "HF1.h"
 #include "WAIT1.h"
 #include "LED_Blue.h"
 #include "LEDpin1.h"
 #include "BitIoLdd3.h"
+#include "Inhr1.h"
+#include "PwmLdd1.h"
 #include "LED_Red.h"
 #include "LEDpin2.h"
 /* Including shared modules, which are used for whole project */
@@ -59,7 +63,6 @@ int main(void)
 
   /* Write your code here */
 
-
   for(;;) {
 	  LED_Red_On();
 	  WAIT1_Waitms(1000);
@@ -70,6 +73,7 @@ int main(void)
 	  LED_Green_On();
 	  WAIT1_Waitms(1000);
 	  LED_Green_Off();
+
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
