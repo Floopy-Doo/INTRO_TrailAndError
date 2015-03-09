@@ -30,8 +30,16 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
-#include "Bit1.h"
 #include "BitIoLdd1.h"
+#include "LED_Green.h"
+#include "LEDpin3.h"
+#include "BitIoLdd2.h"
+#include "WAIT1.h"
+#include "LED_Blue.h"
+#include "LEDpin1.h"
+#include "BitIoLdd3.h"
+#include "LED_Red.h"
+#include "LEDpin2.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -51,21 +59,18 @@ int main(void)
 
   /* Write your code here */
 
-  /**
-  \msc
-  arcgradient = 8;
-  a [label="Client"],b [label="Server"];
-  a-xb [label="get accel"];
-  a=>b [label="get accel"];
-  a<=b [label="ack"];
-  a<=b [label="accel data"];
-  \endmsc
-  */
 
   for(;;) {
-	  Bit1_NegVal();
+	  LED_Red_On();
+	  WAIT1_Waitms(1000);
+	  LED_Red_Off();
+	  LED_Blue_On();
+	  WAIT1_Waitms(1000);
+	  LED_Blue_Off();
+	  LED_Green_On();
+	  WAIT1_Waitms(1000);
+	  LED_Green_Off();
   }
-
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
