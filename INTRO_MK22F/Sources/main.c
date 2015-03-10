@@ -1,10 +1,10 @@
 /* ###################################################################
 **     Filename    : main.c
-**     Project     : INTRO_MK22F
+**     Project     : INTRO_Robo_Master
 **     Processor   : MK22FX512VLQ12
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-02-17, 11:48, # CodeGen: 0
+**     Date/Time   : 2015-02-24, 08:21, # CodeGen: 0
 **     Abstract    :
 **         Main module.
 **         This module contains user's application code.
@@ -30,12 +30,21 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
+#include "WAIT1.h"
+#include "LedBit1.h"
+#include "BitIoLdd3.h"
+#include "LedBit2.h"
+#include "BitIoLdd4.h"
+#include "CS1.h"
+#include "HF1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Platform.h"
+#include "LED.h"
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
@@ -49,6 +58,24 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
+  PL_Init();
+  LED1_On();
+  LED2_On();
+  LED3_On();
+  LED1_Off();
+  LED2_Off();
+  LED3_Off();
+
+  for(;;) {
+    LED1_On();
+    WAIT1_Waitms(200);
+    LED2_On();
+    WAIT1_Waitms(200);
+    LED1_Off();
+    WAIT1_Waitms(200);
+    LED2_Off();
+    WAIT1_Waitms(200);
+  }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
