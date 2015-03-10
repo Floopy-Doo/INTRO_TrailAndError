@@ -9,11 +9,13 @@
 #include "../../COMMON/Platform.h"
 #include "../../COMMON/LED.h"
 #include "../../COMMON/Event.h"
+#include "../../COMMON/Timer.h"
 #include "LED_WAIT.h"
 
 void APP_Start(void) {
 	// Initialize Platform
 	PL_Init();
+	TMR_Init();
 
 	// Do work
 	for(;;) {
@@ -27,6 +29,7 @@ void APP_Start(void) {
 
 	// Finalize Platform
 	PL_Deinit();
+	TMR_DeInit();
 }
 
 void APP_HandleEvent(EVNT_Handle event) {

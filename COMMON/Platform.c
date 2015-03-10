@@ -8,6 +8,10 @@
 #include "LED.h"
 #include "Event.h"
 
+
+/*!
+ * PLattform Initialization
+ */
 void PL_Init(void) {
 	#if LED_ENABLE
 	LED_Init();
@@ -17,6 +21,9 @@ void PL_Init(void) {
 	#endif
 }
 
+/*!
+ * Platform deinit
+ */
 void PL_Deinit(void) {
 	#if LED_ENABLE
 	LED_Deinit();
