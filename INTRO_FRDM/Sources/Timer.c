@@ -1,18 +1,20 @@
 
+#include "../../COMMON/Platform.h"
 #include "../../COMMON/Timer.h"
 #include "../../COMMON/LED.h"
+#include "../../COMMON/Event.h"
 
+
+void TMR_OnInterrupt(void){
+	EVNT_SetEvent(EVNT_LED_ON);
+}
 
 /*! \brief Timer driver initialization */
 void TMR_Init(void){
-	Timer1ms_SetPeriodMS(TMR_TICK_MS);
-	Timer1ms_Enable();
-	Timer1ms_EnableEvent();
 
 }
 
 /*! \brief Timer driver de-initialization */
 void TMR_Deinit(void){
-	Timer1ms_DisableEvent();
-	Timer1ms_Disable();
+
 }

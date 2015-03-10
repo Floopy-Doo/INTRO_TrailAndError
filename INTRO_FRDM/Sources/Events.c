@@ -30,6 +30,7 @@
 #include "Cpu.h"
 #include "Events.h"
 #include "../../COMMON/LED.h"
+#include "../../COMMON/Timer.h"
 
 
 #ifdef __cplusplus
@@ -74,7 +75,7 @@ void Cpu_OnNMIINT(void)
 void Timer1ms_OnInterrupt(void)
 {
   /* Write your code here ... */
-	LED_On(LED_RED);
+	TMR_OnInterrupt();
 }
 
 /* END Events */

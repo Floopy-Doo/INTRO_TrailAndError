@@ -19,6 +19,7 @@ typedef enum EVNT_Handle {
   EVNT_INIT,            /*!< System Initialization Event */
   EVNT_LED_ON,			/*!< LEDs on Event */
   EVNT_LED_OFF,			/*!< LEDs off Event */
+  EVNT_LED_NEG,
   EVNT_NOF_EVENTS       /*!< Must be last one! */
 } EVNT_Handle;
 

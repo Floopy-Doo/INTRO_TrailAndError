@@ -15,21 +15,21 @@
 void APP_Start(void) {
 	// Initialize Platform
 	PL_Init();
-	TMR_Init();
+
 
 	// Do work
 	for(;;) {
-		LED_WAIT_Waitms(500);
+		/*!LED_WAIT_Waitms(500);
 		EVNT_SetEvent(EVNT_LED_ON);
 		EVNT_HandleEvent(APP_HandleEvent);
 		LED_WAIT_Waitms(500);
-		EVNT_SetEvent(EVNT_LED_OFF);
+		EVNT_SetEvent(EVNT_LED_OFF);*/
 		EVNT_HandleEvent(APP_HandleEvent);
 	}
 
 	// Finalize Platform
 	PL_Deinit();
-	TMR_DeInit();
+
 }
 
 void APP_HandleEvent(EVNT_Handle event) {
@@ -42,6 +42,14 @@ void APP_HandleEvent(EVNT_Handle event) {
 		case EVNT_LED_OFF:
 			LED_All_Off();
 			break;
+			/*!case EVNT_LED_NEG:
+			LED_On(LED_ALL);
+			if(LED_Get(LED_ALL)==LED_ON){
+				LED_All_Off();
+			}
+			else{
+				LED_All_On();
+			}*/
 		default: /* do nothing */
 			break;
 	}

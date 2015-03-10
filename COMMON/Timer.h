@@ -9,6 +9,8 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
+#include "Platform.h"
+
 #define TMR_TICK_MS  10
   /*!< we get called every TMR_TICK_MS ms */
 
