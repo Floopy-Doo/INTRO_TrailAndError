@@ -45,7 +45,6 @@
 #include "TimerIntLdd1.h"
 #include "TU1.h"
 
-#include "../COMMON/Timer.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -84,7 +83,6 @@ void Cpu_OnNMIINT(void);
 void TI1_OnInterrupt(void);
 
 /* END Events */
-	TMR_OnInterrupt();
 
 #ifdef __cplusplus
 }  /* extern "C" */

@@ -5,10 +5,9 @@
 */
 
 #include "TI1.h"
-#include "../../COMMON/Timer.h"
-#include "../../COMMON/LED.h"
-
-#define TMR_TICK_MS 10
+#include "Timer.h"
+#include "Event.h"
+#include "LED.h"
 
 void TMR_Init() {
 	TI1_Enable();
@@ -20,10 +19,9 @@ void TMR_Deinit() {
 	TI1_DisableEvent();
 }
 
-int tmrTickCounter = 0;
+void TMR_OnInterrupt(void) {
+	static int trmTickCount = 0;
 
-void TMR_OnInterrupt() {
-	if ((tmrTickCounter * TMR_TICK_MS) % 1000) {
-		LED_On();
+	if ((++trmTickCount * TMR_TICK_MS) % 1000) {
 	}
 }
