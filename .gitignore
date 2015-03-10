@@ -1,1 +1,11 @@
-INTRO_KL25Z/doxy/html/
+*.g_x
+*.g_c
+*.cwGeneratedFileSetLog
+*/Generated_Code
+*/Static_Code
+*/Documentation
+*/Debug
+ProjectInfo.xml
+*/.settings
+*/html
+*/doxy/html/
