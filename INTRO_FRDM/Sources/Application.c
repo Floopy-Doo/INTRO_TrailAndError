@@ -5,13 +5,13 @@
  *      Author: Philipp Gosswiler
  */
 
-#include "../../COMMON/Application.h"
-#include "../../COMMON/Platform.h"
-#include "../../COMMON/LED.h"
-#include "../../COMMON/Event.h"
-#include "../../COMMON/Timer.h"
+#include "Application.h"
+#include "Platform.h"
+#include "LED.h"
+#include "Event.h"
+#include "Timer.h"
 #include "LED_WAIT.h"
-#include "LED_FRDM.c"
+#include "LED_FRDM.h"
 
 
 void APP_Start(void) {

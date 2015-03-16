@@ -5,21 +5,23 @@
  *      Author: Philipp Gosswiler
  */
 
-#include "../../COMMON/LED.h"
-#include "../../COMMON/Platform.h"
+
+#include "Platform.h"
+#include "LED.h"
 #include "LED_FRDM.h"
+
 #include "LedBit1.h"
 #include "LedBit2.h"
 #include "LedBit3.h"
 #include "LED_WAIT.h"
 
 // Initialization
-/*!void LED_Init(void) {
-	LED_All_Off();
+void LED_Init(void) {
+	//LED_All_Off();
 }
 
 void LED_Deinit(void) {
-	LED_All_Off();
+	//LED_All_Off();
 }
 
 void LED_Test(void) {
@@ -34,21 +36,22 @@ void LED_Test(void) {
 	#endif
 }
 
+
 // Open & Close
 void LED_Open(void) {}
 void LED_Close(void) {}
 
 // Functionality
 void LED_On(LED_Set leds) {
-	if (leds & LED_GREEN) LedBit1_PutVal(LED_ON);
-	if (leds & LED_RED) LedBit2_PutVal(LED_ON);
+	if (leds & LED_RED) LedBit1_PutVal(LED_ON);
+	if (leds & LED_GREEN) LedBit2_PutVal(LED_ON);
 	if (leds & LED_BLUE) LedBit3_PutVal(LED_ON);
 }
 
 void LED_Off(LED_Set leds) {
-	if (leds & LED_GREEN) LED_GREEN_PutVal(LED_OFF);
-	if (leds & LED_RED) LED_RED_PutVal(LED_OFF);
-	if (leds & LED_BLUE) LED_BLUE_PutVal(LED_OFF);
+	if (leds & LED_RED) LedBit1_PutVal(LED_OFF);
+	if (leds & LED_GREEN) LedBit2_PutVal(LED_OFF);
+	if (leds & LED_BLUE) LedBit3_PutVal(LED_OFF);
 }
 
 void LED_All_Off(void) {
@@ -56,17 +59,16 @@ void LED_All_Off(void) {
 }
 
 void LED_Neg(LED_Set leds) {
-	if (leds & LED_GREEN) LED_GREEN_NegVal();
-	if (leds & LED_BLUE) LED_BLUE_NegVal();
-	if (leds & LED_RED) LED_RED_NegVal();
+	if (leds & LED_GREEN) LedBit2_NegVal();
+	if (leds & LED_BLUE) LedBit1_NegVal();
+	if (leds & LED_RED) LedBit3_NegVal();
 }
 
 LED_Status LED_Get(LED_Set leds) {
-	uint8 status = (LED_GREEN_GetVal()<<2) & (LED_RED_GetVal()<<1) & (LED_BLUE_GetVal()<<3);
+	uint8 status = (LedBit2_GetVal()<<2) & (LedBit1_GetVal()<<1) & (LedBit3_GetVal()<<3);
 	if (leds & status) {
 		return LED_ON;
 	}
 	return LED_OFF;
 }
-*/
 
