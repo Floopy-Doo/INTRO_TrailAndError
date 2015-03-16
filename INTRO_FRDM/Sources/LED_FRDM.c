@@ -8,13 +8,13 @@
 #include "../../COMMON/LED.h"
 #include "../../COMMON/Platform.h"
 #include "LED_FRDM.h"
-#include "LED_RED.h"
-#include "LED_BLUE.h"
-#include "LED_GREEN.h"
+#include "LedBit1.h"
+#include "LedBit2.h"
+#include "LedBit3.h"
 #include "LED_WAIT.h"
 
 // Initialization
-void LED_Init(void) {
+/*!void LED_Init(void) {
 	LED_All_Off();
 }
 
@@ -40,9 +40,9 @@ void LED_Close(void) {}
 
 // Functionality
 void LED_On(LED_Set leds) {
-	if (leds & LED_GREEN) LED_GREEN_PutVal(LED_ON);
-	if (leds & LED_RED) LED_RED_PutVal(LED_ON);
-	if (leds & LED_BLUE) LED_BLUE_PutVal(LED_ON);
+	if (leds & LED_GREEN) LedBit1_PutVal(LED_ON);
+	if (leds & LED_RED) LedBit2_PutVal(LED_ON);
+	if (leds & LED_BLUE) LedBit3_PutVal(LED_ON);
 }
 
 void LED_Off(LED_Set leds) {
@@ -68,5 +68,5 @@ LED_Status LED_Get(LED_Set leds) {
 	}
 	return LED_OFF;
 }
-
+*/
 

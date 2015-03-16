@@ -1,41 +1,135 @@
-/*!
- *  \file LED.h
- *  \brief LED Driver
- *  \author Philipp Gosswiler <philipp.gosswiler@stud.hslu.ch>
- *  \author Reto Ritter <reto.ritter@stud.hslu.ch>
+/**
+ * \file
+ * \brief LED driver interface.
+ * \author Erich Styger, erich.styger@hslu.ch
  *
- *  Interface for LED Driver. Defines basic functions to use LEDs in the project.
+ * This module implements a generic LED driver for several LEDs.
+ * It is using macros for maximum flexibility with minimal code overhead.
  */
 
 #ifndef LED_H_
 #define LED_H_
 
 #include "Platform.h"
-#if LED_ENABLE
 
-#ifdef PL_BOARD_IS_FRDM
-	#include "LED_FRDM.h"
-#elif defined(PL_BOARD_IS_ROBO)
-	#include "LED_Robo.h"
+#if PL_NOF_LEDS >= 1
+  #include "LedBit1.h"
+  #define LED1_On()     LedBit1_ClrVal()
+    /*!< Turn LED 1 on */
+  #define LED1_Off()    LedBit1_SetVal()
+    /*!< Turn LED 1 off */
+  #define LED1_Neg()    LedBit1_NegVal()
+    /*!< Toggle LED 1 */
+  #define LED1_Get()    (!LedBit1_GetVal())
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED1_Put(val) LedBit1_PutVal(!val)
+    /*!< Turn LED on or off */
+  #define LED1_Init()   /* do nothing */
+    /*!< Initialize LED */
+  #define LED1_Deinit() /* do nothing */
+    /*!< De-Initialize LED */
 #else
-	#error "Unknown Board"
+  #define LED1_On()     /* do nothing */
+    /*!< Turn LED 1 on */
+  #define LED1_Off()    /* do nothing */
+    /*!< Turn LED 1 off */
+  #define LED1_Neg()    /* do nothing */
+    /*!< Toggle LED 1 */
+  #define LED1_Get()  0 /* do nothing */
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED1_Put(val) /* do nothing */
+    /*!< Turn LED 1 on or off */
+  #define LED1_Init()   /* do nothing */
+    /*!< Initialize LED 1 */
+  #define LED1_Deinit() /* do nothing */
+    /*!< De-Initialize LED 1 */
 #endif
 
-// Initialization
-void LED_Init(void);
-void LED_Deinit(void);
+#if PL_NOF_LEDS >= 2
+  #include "LedBit2.h"
+  #define LED2_On()     LedBit2_ClrVal()
+    /*!< Turn LED 1 on */
+  #define LED2_Off()    LedBit2_SetVal()
+    /*!< Turn LED 1 off */
+  #define LED2_Neg()    LedBit2_NegVal()
+    /*!< Toggle LED 1 */
+  #define LED2_Get()    (!LedBit2_GetVal())
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED2_Put(val) LedBit2_PutVal(!val)
+    /*!< Turn LED on or off */
+  #define LED2_Init()   /* do nothing */
+    /*!< Initialize LED */
+  #define LED2_Deinit() /* do nothing */
+    /*!< De-Initialize LED */
+#else
+  #define LED2_On()     /* do nothing */
+    /*!< Turn LED 2 on */
+  #define LED2_Off()    /* do nothing */
+    /*!< Turn LED 2 off */
+  #define LED2_Neg()    /* do nothing */
+    /*!< Toggle LED 2 */
+  #define LED2_Get()  0 /* do nothing */
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED2_Put(val) /* do nothing */
+    /*!< Turn LED 2 on or off */
+  #define LED2_Init()   /* do nothing */
+    /*!< Initialize LED 2 */
+  #define LED2_Deinit() /* do nothing */
+    /*!< De-Initialize LED 2 */
+#endif
+
+#if PL_NOF_LEDS >= 3
+  #include "LedBit3.h"
+  #define LED3_On()     LedBit3_ClrVal()
+    /*!< Turn LED 1 on */
+  #define LED3_Off()    LedBit3_SetVal()
+    /*!< Turn LED 1 off */
+  #define LED3_Neg()    LedBit3_NegVal()
+    /*!< Toggle LED 1 */
+  #define LED3_Get()    (!LedBit3_GetVal())
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED3_Put(val) LedBit3_PutVal(!val)
+    /*!< Turn LED on or off */
+  #define LED3_Init()   /* do nothing */
+    /*!< Initialize LED */
+  #define LED3_Deinit() /* do nothing */
+    /*!< De-Initialize LED */
+#else
+  #define LED3_On()     /* do nothing */
+    /*!< Turn LED 3 on */
+  #define LED3_Off()    /* do nothing */
+    /*!< Turn LED 3 off */
+  #define LED3_Neg()    /* do nothing */
+    /*!< Toggle LED 3 */
+  #define LED3_Get()  0 /* do nothing */
+    /*!< Return TRUE if LED is on, FALSE otherwise */
+  #define LED3_Put(val) /* do nothing */
+    /*!< Turn LED 3 on or off */
+  #define LED3_Init()   /* do nothing */
+    /*!< Initialize LED 3 */
+  #define LED3_Deinit() /* do nothing */
+    /*!< De-Initialize LED 3 */
+#endif
+
+/*!
+ * \brief LED test routine.
+ * This routine tests if:
+ * - we can turn the LEDs properly on and off
+ * - if we can negate them
+ * - if we can set an LED value
+ * - if we can get the LED value
+ * If the test fails, the program will hanging in an endless loop
+ */
 void LED_Test(void);
 
-// Open & Close
-void LED_Open(void);
-void LED_Close(void);
+/*!
+ * \brief LED Driver Intialization.
+ */
+void LED_Init(void);
 
-// Functionality
-void LED_On(LED_Set leds);
-void LED_All_Off(void);
-void LED_Off(LED_Set leds);
-void LED_Neg(LED_Set leds);
-LED_Status LED_Get(LED_Set leds);
+/*!
+ * \brief LED Driver De-Initialization.
+ */
+void LED_Deinit(void);
 
-#endif /* LED_ENABLE */
 #endif /* LED_H_ */

@@ -6,7 +6,8 @@
 
 
 void TMR_OnInterrupt(void){
-	EVNT_SetEvent(EVNT_LED_ON);
+
+	EVNT_SetEvent(EVNT_LED_ON);	//Wirfe bei Timerinterrupt ein Event. Wird in Application.c behandelt
 }
 
 /*! \brief Timer driver initialization */

@@ -3,7 +3,7 @@
   <Header>
     <Name>INTRO_FRDM</Name>
     <SavedBy>Roman</SavedBy>
-    <ModificationStamp>16</ModificationStamp>
+    <ModificationStamp>18</ModificationStamp>
     <Date>2015-03-16</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.10.1.RT6_b1444-1070</PEversion>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>34</ProjectCompNumb>
+    <ProjectCompNumb>37</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -4422,7 +4422,7 @@
   </CPU>
   <Bean>
     <BeanType>BitIO</BeanType>
-    <Name>LED_RED</Name>
+    <Name>LedBit1</Name>
     <CompNumb>6</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -4437,7 +4437,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LED_RED</Value>
+        <Value>LedBit1</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -5007,7 +5007,7 @@
   </Bean>
   <Bean>
     <BeanType>BitIO</BeanType>
-    <Name>LED_GREEN</Name>
+    <Name>LedBit2</Name>
     <CompNumb>11</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -5022,7 +5022,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LED_GREEN</Value>
+        <Value>LedBit2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -5592,7 +5592,7 @@
   </Bean>
   <Bean>
     <BeanType>BitIO</BeanType>
-    <Name>LED_BLUE</Name>
+    <Name>LedBit3</Name>
     <CompNumb>13</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -5607,7 +5607,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LED_BLUE</Value>
+        <Value>LedBit3</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>

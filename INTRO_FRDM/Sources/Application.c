@@ -11,6 +11,7 @@
 #include "../../COMMON/Event.h"
 #include "../../COMMON/Timer.h"
 #include "LED_WAIT.h"
+#include "LED_FRDM.c"
 
 
 void APP_Start(void) {
@@ -19,11 +20,6 @@ void APP_Start(void) {
 
 	// Do work
 	for(;;) {
-		/*!LED_WAIT_Waitms(500);
-		EVNT_SetEvent(EVNT_LED_ON);
-		EVNT_HandleEvent(APP_HandleEvent);
-		LED_WAIT_Waitms(500);
-		EVNT_SetEvent(EVNT_LED_OFF);*/
 		EVNT_HandleEvent(APP_HandleEvent);
 	}
 
@@ -37,19 +33,11 @@ void APP_HandleEvent(EVNT_Handle event) {
 		case EVNT_INIT:
 			break;
 		case EVNT_LED_ON:
-			LED_On(LED_ALL);
+			LED1_On();
 			break;
 		case EVNT_LED_OFF:
-			LED_All_Off();
-			break;
-			/*!case EVNT_LED_NEG:
-			LED_On(LED_ALL);
-			if(LED_Get(LED_ALL)==LED_ON){
-				LED_All_Off();
-			}
-			else{
-				LED_All_On();
-			}*/
+			LED1_Off();
+
 		default: /* do nothing */
 			break;
 	}

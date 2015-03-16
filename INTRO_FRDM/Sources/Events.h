@@ -34,15 +34,18 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
-#include "LED_RED.h"
+#include "LedBit1.h"
 #include "BitIoLdd1.h"
-#include "LED_GREEN.h"
+#include "LedBit2.h"
 #include "BitIoLdd2.h"
-#include "LED_BLUE.h"
+#include "LedBit3.h"
 #include "BitIoLdd3.h"
 #include "LED_WAIT.h"
 #include "CS1.h"
 #include "HF1.h"
+#include "Timer1ms.h"
+#include "TimerIntLdd1.h"
+#include "TU1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,6 +66,22 @@ extern "C" {
 /* ===================================================================*/
 void Cpu_OnNMIINT(void);
 
+
+/*
+** ===================================================================
+**     Event       :  Timer1ms_OnInterrupt (module Events)
+**
+**     Component   :  Timer1ms [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void Timer1ms_OnInterrupt(void);
 
 /* END Events */
 
