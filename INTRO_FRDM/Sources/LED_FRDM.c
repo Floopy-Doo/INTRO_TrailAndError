@@ -57,6 +57,9 @@ void LED_Off(LED_Set leds) {
 void LED_All_Off(void) {
 	LED_Off(LED_ALL);
 }
+void LED_All_On(void) {
+	LED_On(LED_ALL);
+}
 
 void LED_Neg(LED_Set leds) {
 	if (leds & LED_GREEN) LedBit2_NegVal();

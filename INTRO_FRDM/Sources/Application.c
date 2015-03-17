@@ -27,6 +27,7 @@ void APP_Start(void) {
 	// Do work
 	for(;;) {
 		EVNT_HandleEvent(APP_HandleEvent);
+		KEY_Scan();
 	}
 
 	// Finalize Platform
@@ -46,10 +47,31 @@ void APP_HandleEvent(EVNT_Handle event) {
 			LED1_Off();
 			break;
 		case EVNT_SW1_PRESSED:
-			LED1_Off();
+			LED_All_Off();
+			LED_All_On();
+			break;
+		case EVNT_SW2_PRESSED:
+			LED_All_Off();
 			LED2_On();
 			break;
-
+		case EVNT_SW3_PRESSED:
+			LED_All_Off();
+			LED2_On();
+			break;
+		case EVNT_SW4_PRESSED:
+			LED_All_Off();
+			LED1_On();
+			break;
+		case EVNT_SW5_PRESSED:
+			LED_All_Off();
+			LED1_On();
+			LED2_On();
+			break;
+		case EVNT_SW6_PRESSED:
+			LED_All_Off();
+			LED1_On();
+			LED3_On();
+			break;
 		default: /* do nothing */
 			break;
 	}
