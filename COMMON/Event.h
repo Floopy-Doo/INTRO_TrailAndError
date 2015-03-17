@@ -13,13 +13,20 @@
 #include "Platform.h"
 #include "PE_Types.h"
 
-#if EVENT_ENABLED
+#if PL_HAS_EVENTS
 
 typedef enum EVNT_Handle {
   EVNT_INIT,            /*!< System Initialization Event */
   EVNT_LED_ON,			/*!< LEDs on Event */
   EVNT_LED_OFF,			/*!< LEDs off Event */
   EVNT_LED_NEG,
+  EVNT_SW1_PRESSED,
+  EVNT_SW2_PRESSED,
+  EVNT_SW3_PRESSED,
+  EVNT_SW4_PRESSED,
+  EVNT_SW5_PRESSED,
+  EVNT_SW6_PRESSED,
+  EVNT_SW7_PRESSED,
   EVNT_NOF_EVENTS       /*!< Must be last one! */
 } EVNT_Handle;
 

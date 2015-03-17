@@ -8,7 +8,7 @@
  */
 #include "Platform.h"
 
-#if EVENT_ENABLED
+#if PL_HAS_EVENTS
 
 #include "Event.h" /* our own interface */
 #include "CS1.h" /* for Enter/ExitCritical() */

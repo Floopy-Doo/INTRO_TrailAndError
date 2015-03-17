@@ -37,7 +37,7 @@
 #if PL_HAS_MEALY
 #include "Mealy.h"    /* our own interface */
 #include "LED.h"      /* interface to LED driver */
-//#include "Keys.h"     /* interface to switch 1 */ Auskommentiert, da keine KEY bisher definiert
+#include "Keys.h"     /* interface to switch 1 */
 
 /*!
  \brief Enumeration for the LEDs we want to emit. Note that they are encoded in bits
@@ -133,13 +133,13 @@ const uint8_t tbl[5][2][2] = /* format: {next,output} */
   \brief Method to return which input key has been pressed for the Mealy Sequential Machine.
   \return Returns ::INPUT_a or ::INPUT_b
  */
-//static InputState GetInput(void) {
-//  if (KEY1_Get()==0) { /* a, not pressed */
-//   return INPUT_a;
-//  } else { /* b, pressed */
-//    return INPUT_b;
-//  }
-//} keine keys initialisiert
+static InputState GetInput(void) {
+  if (KEY1_Get()==0) { /* a, not pressed */
+   return INPUT_a;
+  } else { /* b, pressed */
+    return INPUT_b;
+  }
+}
 
 /*!
  * \brief Turn the LEDs on or off depending on the led set.

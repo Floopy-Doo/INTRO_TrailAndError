@@ -29,8 +29,9 @@
 
 #include "Cpu.h"
 #include "Events.h"
-#include "../../COMMON/LED.h"
-#include "../../COMMON/Timer.h"
+#include "LED.h"
+#include "Timer.h"
+#include "Keys.h"
 
 
 #ifdef __cplusplus
@@ -76,6 +77,96 @@ void Timer1ms_OnInterrupt(void)
 {
   /* Write your code here ... */
 	TMR_OnInterrupt();
+}
+
+/*
+** ===================================================================
+**     Event       :  SW7_OnInterrupt (module Events)
+**
+**     Component   :  SW7 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW7_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	KEY_OnInterrupt(KEY_BTN7);
+}
+
+/*
+** ===================================================================
+**     Event       :  SW4_OnInterrupt (module Events)
+**
+**     Component   :  SW4 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW4_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	KEY_OnInterrupt(KEY_BTN4);
+}
+
+/*
+** ===================================================================
+**     Event       :  SW3_OnInterrupt (module Events)
+**
+**     Component   :  SW3 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW3_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	KEY_OnInterrupt(KEY_BTN3);
+}
+
+/*
+** ===================================================================
+**     Event       :  SW2_OnInterrupt (module Events)
+**
+**     Component   :  SW2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW2_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	KEY_OnInterrupt(KEY_BTN2);
+}
+
+/*
+** ===================================================================
+**     Event       :  SW1_OnInterrupt (module Events)
+**
+**     Component   :  SW1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW1_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	KEY_OnInterrupt(KEY_BTN1);
 }
 
 /* END Events */
