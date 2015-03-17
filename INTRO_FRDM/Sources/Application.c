@@ -13,6 +13,7 @@
 #include "LED_WAIT.h"
 #include "LED_FRDM.h"
 #include "Keys.h"
+#include "CLS1.h"
 
 
 void APP_Start(void) {
@@ -22,7 +23,7 @@ void APP_Start(void) {
 	EVNT_Init();
 	KEY_Init();
 	KEY_EnableInterrupts();
-
+	CLS1_Init();
 
 	// Do work
 	for(;;) {
@@ -34,6 +35,7 @@ void APP_Start(void) {
 	PL_Deinit();
 	EVNT_Deinit();
 	KEY_Deinit();
+	CLS1_Deinit();
 }
 
 void APP_HandleEvent(EVNT_Handle event) {
@@ -49,28 +51,40 @@ void APP_HandleEvent(EVNT_Handle event) {
 		case EVNT_SW1_PRESSED:
 			LED_All_Off();
 			LED_All_On();
+			CLS1_SendStr("SW1 - A - YELLOW is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		case EVNT_SW2_PRESSED:
 			LED_All_Off();
 			LED2_On();
+			CLS1_SendStr("SW2 - B - GREEN is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		case EVNT_SW3_PRESSED:
 			LED_All_Off();
 			LED2_On();
+			CLS1_SendStr("SW3 - C - BLUE is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		case EVNT_SW4_PRESSED:
 			LED_All_Off();
 			LED1_On();
+			CLS1_SendStr("SW4 - D - RED is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		case EVNT_SW5_PRESSED:
 			LED_All_Off();
 			LED1_On();
 			LED2_On();
+			CLS1_SendStr("SW5 - E is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		case EVNT_SW6_PRESSED:
 			LED_All_Off();
 			LED1_On();
 			LED3_On();
+			CLS1_SendStr("SW6 - F is Pressed\r\n", CLS1_GetStdio()->stdOut);
+
 			break;
 		default: /* do nothing */
 			break;
