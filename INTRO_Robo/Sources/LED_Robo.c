@@ -4,8 +4,8 @@
  *  Created on: 03.03.2015
  *      Author: Philipp Gosswiler
  */
-#include "../../COMMON/LED.h"
-#include "../../COMMON/Platform.h"
+#include "Platform.h"
+#include "LED.h"
 #include "LED_Robo.h"
 #include "LED_WAIT.h"
 #include "LED_FRONT_LEFT.h"
