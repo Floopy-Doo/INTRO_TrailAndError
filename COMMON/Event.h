@@ -20,6 +20,7 @@ typedef enum EVNT_Handle {
   EVNT_LED_ON,			/*!< LEDs on Event */
   EVNT_LED_OFF,			/*!< LEDs off Event */
   EVNT_LED_NEG,
+  EVNT_HEARTBEAT,		/*!< LED Heartbeat Event */
   EVNT_SW1_PRESSED,
   EVNT_SW2_PRESSED,
   EVNT_SW3_PRESSED,
