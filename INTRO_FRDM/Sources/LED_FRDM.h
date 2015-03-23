@@ -38,5 +38,6 @@ void LED_All_Off(void);
 void LED_All_On(void);
 void LED_Neg(LED_Set leds);
 LED_Status LED_Get(LED_Set leds);
+void LED_HeartBeat(void *p);
 
 #endif /* LED_FRDM_H_ */

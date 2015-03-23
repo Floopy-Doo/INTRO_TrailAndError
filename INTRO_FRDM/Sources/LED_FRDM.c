@@ -13,7 +13,9 @@
 #include "LedBit1.h"
 #include "LedBit2.h"
 #include "LedBit3.h"
-#include "LED_WAIT.h"
+#include "WAIT.h"
+#include "Trigger.h"
+
 
 // Initialization
 void LED_Init(void) {
@@ -75,3 +77,9 @@ LED_Status LED_Get(LED_Set leds) {
 	return LED_OFF;
 }
 
+
+void LED_HeartBeat(void *p){
+	(void)p;
+	LED1_Neg();
+	TRG_SetTrigger(TRG_LED_BLINK,1000/TRG_TICKS_MS, LED_HeartBeat, NULL);
+}

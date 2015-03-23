@@ -3,7 +3,7 @@
   <Header>
     <Name>INTRO_FRDM</Name>
     <SavedBy>Roman</SavedBy>
-    <ModificationStamp>22</ModificationStamp>
+    <ModificationStamp>24</ModificationStamp>
     <Date>2015-03-23</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.10.1.RT6_b1444-1070</PEversion>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>75</ProjectCompNumb>
+    <ProjectCompNumb>78</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -6184,7 +6184,7 @@
   </Bean>
   <Bean>
     <BeanType>Wait</BeanType>
-    <Name>LED_WAIT</Name>
+    <Name>WAIT</Name>
     <CompNumb>15</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -6199,7 +6199,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LED_WAIT</Value>
+        <Value>WAIT</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ManualClockValues</ItemSymbol>

@@ -10,10 +10,11 @@
 #include "LED.h"
 #include "Event.h"
 #include "Timer.h"
-#include "LED_WAIT.h"
+#include "WAIT.h"
 #include "LED_FRDM.h"
 #include "Keys.h"
 #include "CLS1.h"
+#include "Trigger.h"
 
 
 void APP_Start(void) {
@@ -29,7 +30,7 @@ void APP_Start(void) {
 	for(;;) {
 		EVNT_HandleEvent(APP_HandleEvent);
 		KEY_Scan();
-		LED_WAIT_Waitms(50); /* wait some time */
+		WAIT_Waitms(50); /* wait some time */
 	}
 
 	// Finalize Platform
@@ -82,10 +83,8 @@ void APP_HandleEvent(EVNT_Handle event) {
 			break;
 		case EVNT_SW6_PRESSED:
 			LED_All_Off();
-			LED1_On();
-			LED3_On();
 			CLS1_SendStr("EVNT_SW6_PRESSED\r\n", CLS1_GetStdio()->stdOut);
-
+			TRG_SetTrigger(TRG_LED_BLINK,1, LED_HeartBeat, NULL);
 			break;
 		default: /* do nothing */
 			break;

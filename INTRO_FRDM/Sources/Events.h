@@ -40,7 +40,7 @@
 #include "BitIoLdd2.h"
 #include "LedBit3.h"
 #include "BitIoLdd3.h"
-#include "LED_WAIT.h"
+#include "WAIT.h"
 #include "CS1.h"
 #include "HF1.h"
 #include "Timer1ms.h"

@@ -1,12 +1,13 @@
 
-#include "../../COMMON/Platform.h"
-#include "../../COMMON/Timer.h"
-#include "../../COMMON/LED.h"
-#include "../../COMMON/Event.h"
+#include "Platform.h"
+#include "Timer.h"
+#include "LED.h"
+#include "Event.h"
+#include "Trigger.h"
 
 
 void TMR_OnInterrupt(void){
-
+	TRG_IncTick();
 	//EVNT_SetEvent(EVNT_LED_ON);	//Wirfe bei Timerinterrupt ein Event. Wird in Application.c behandelt
 }
 

@@ -49,6 +49,12 @@
   /*!< Set to 1 to use reset switch on FRDM as button, 0 otherwise */
 #define PL_HAS_JOYSTICK       (1 && PL_IS_FRDM && PL_HAS_KEYS)
   /*!< Set to 1 to enable joystick shield support, 0 otherwise */
+#define PL_HAS_TRIGGER        (1)
+  /*!< Set to 1 for trigger enabled, 0 otherwise */
+#define PL_HAS_SHELL          (0)
+  /*!< Set to 1 for shell enabled, 0 otherwise */
+#define PL_HAS_BUZZER         (1 && PL_IS_ROBO)
+  /*!< Set to 1 for buzzer enabled, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
