@@ -24,7 +24,7 @@
 
 #if PL_IS_FRDM
   #include "MKL25Z4.h"
-  #include "LED_FDRM.h"
+  #include "LED_FRDM.h"
 #elif PL_IS_ROBO
   #include "MK22F12.h"
   #include "LED_Robo.h"
