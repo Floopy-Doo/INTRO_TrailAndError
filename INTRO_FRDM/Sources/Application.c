@@ -29,6 +29,7 @@ void APP_Start(void) {
 	for(;;) {
 		EVNT_HandleEvent(APP_HandleEvent);
 		KEY_Scan();
+		LED_WAIT_Waitms(50); /* wait some time */
 	}
 
 	// Finalize Platform
@@ -51,39 +52,39 @@ void APP_HandleEvent(EVNT_Handle event) {
 		case EVNT_SW1_PRESSED:
 			LED_All_Off();
 			LED_All_On();
-			CLS1_SendStr("SW1 - A - YELLOW is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW1_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		case EVNT_SW2_PRESSED:
 			LED_All_Off();
 			LED2_On();
-			CLS1_SendStr("SW2 - B - GREEN is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW2_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		case EVNT_SW3_PRESSED:
 			LED_All_Off();
 			LED2_On();
-			CLS1_SendStr("SW3 - C - BLUE is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW3_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		case EVNT_SW4_PRESSED:
 			LED_All_Off();
 			LED1_On();
-			CLS1_SendStr("SW4 - D - RED is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW4_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		case EVNT_SW5_PRESSED:
 			LED_All_Off();
 			LED1_On();
 			LED2_On();
-			CLS1_SendStr("SW5 - E is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW5_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		case EVNT_SW6_PRESSED:
 			LED_All_Off();
 			LED1_On();
 			LED3_On();
-			CLS1_SendStr("SW6 - F is Pressed\r\n", CLS1_GetStdio()->stdOut);
+			CLS1_SendStr("EVNT_SW6_PRESSED\r\n", CLS1_GetStdio()->stdOut);
 
 			break;
 		default: /* do nothing */
