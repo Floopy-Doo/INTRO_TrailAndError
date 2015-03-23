@@ -8,8 +8,8 @@
 #include "LED.h"
 #include "LED_Robo.h"
 #include "LED_WAIT.h"
-#include "LED_FRONT_LEFT.h"
-#include "LED_FRONT_RIGHT.h"
+#include "LedBit1.h"
+#include "LedBit2.h"
 
 // Initialization
 void LED_Init(void) {
@@ -38,13 +38,13 @@ void LED_Close(void) {}
 
 // Functionality
 void LED_On(LED_Set leds) {
-	if (leds & LED_FRONT_LEFT) LED_FRONT_LEFT_PutVal(LED_ON);
-	if (leds & LED_FRONT_RIGHT) LED_FRONT_RIGHT_PutVal(LED_ON);
+	if (leds & LED_FRONT_LEFT) LedBit1_PutVal(LED_ON);
+	if (leds & LED_FRONT_RIGHT) LedBit2_PutVal(LED_ON);
 }
 
 void LED_Off(LED_Set leds) {
-	if (leds & LED_FRONT_LEFT) LED_FRONT_LEFT_PutVal(LED_OFF);
-	if (leds & LED_FRONT_RIGHT) LED_FRONT_RIGHT_PutVal(LED_OFF);
+	if (leds & LED_FRONT_LEFT) LedBit1_PutVal(LED_OFF);
+	if (leds & LED_FRONT_RIGHT) LedBit2_PutVal(LED_OFF);
 }
 
 void LED_All_Off(void) {
@@ -52,12 +52,12 @@ void LED_All_Off(void) {
 }
 
 void LED_Neg(LED_Set leds) {
-	if (leds & LED_FRONT_LEFT) LED_FRONT_LEFT_NegVal();
-	if (leds & LED_FRONT_RIGHT) LED_FRONT_RIGHT_NegVal();
+	if (leds & LED_FRONT_LEFT) LedBit1_NegVal();
+	if (leds & LED_FRONT_RIGHT) LedBit2_NegVal();
 }
 
 LED_Status LED_Get(LED_Set leds) {
-	uint8 status = (LED_FRONT_RIGHT_GetVal()<<2) & (LED_FRONT_LEFT_GetVal()<<1);
+	uint8 status = (LedBit2_GetVal()<<2) & (LedBit1_GetVal()<<1);
 	if (leds & status) {
 		return LED_ON;
 	}

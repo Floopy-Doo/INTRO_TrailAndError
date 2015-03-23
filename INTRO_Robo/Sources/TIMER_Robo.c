@@ -22,7 +22,8 @@ void TMR_Deinit() {
 void TMR_OnInterrupt(void) {
 	static int trmTickCount = 0;
 
-	if ((++trmTickCount * TMR_TICK_MS) % 1000) {
+	if ((++trmTickCount * TMR_TICK_MS) % 1000 == 0) {
+		trmTickCount = 0;
 		EVNT_SetEvent(EVNT_HEARTBEAT);
 	}
 }

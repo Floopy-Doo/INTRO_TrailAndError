@@ -23,5 +23,12 @@ typedef enum
 	LED_ALL = LED_FRONT
 } LED_Set;
 
+void LED_Test(void);
+void LED_On(LED_Set leds);
+void LED_Off(LED_Set leds);
+void LED_All_Off(void);
+void LED_All_On(void);
+void LED_Neg(LED_Set leds);
+LED_Status LED_Get(LED_Set leds);
 
 #endif /* LED_ROBO_H_ */
