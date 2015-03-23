@@ -21,15 +21,17 @@
 #define PL_IS_ROBO   (defined(PL_BOARD_IS_ROBO))
   /*!< Macro is defined through compiler option for the Robot board */
 
-#if 0 /* test only */
+
 #if PL_IS_FRDM
   #include "MKL25Z4.h"
+  #include "LED_FDRM.h"
 #elif PL_IS_ROBO
   #include "MK22F12.h"
+  #include "LED_Robo.h"
 #else
   #error "unknown CPU?"
 #endif
-#endif
+
 
 #define LED_ENABLE (1)
   /*!< Set to 1 to enable LED support, 0 otherwise */
