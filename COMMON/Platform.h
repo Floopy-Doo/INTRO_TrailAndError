@@ -53,7 +53,7 @@
   /*!< Set to 1 to enable joystick shield support, 0 otherwise */
 #define PL_HAS_TRIGGER        (1)
   /*!< Set to 1 for trigger enabled, 0 otherwise */
-#define PL_HAS_SHELL          (0)
+#define PL_HAS_SHELL          (1)
   /*!< Set to 1 for shell enabled, 0 otherwise */
 #define PL_HAS_BUZZER         (1 && PL_IS_ROBO)
   /*!< Set to 1 for buzzer enabled, 0 otherwise */
@@ -93,6 +93,8 @@
      /*!< We have up to 2 LED's on the robo board */
   #define PL_NOF_KEYS       (1)
      /*!< We have up to 1 push button */
+  #define PL_HAS_BLTH		(1 && PL_HAS_SHELL)
+     /*!< We have Bluetooth module */
 #else
   #error "unknown configuration?"
 #endif
