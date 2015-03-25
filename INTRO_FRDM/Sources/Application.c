@@ -19,25 +19,10 @@
 
 void APP_Start(void) {
 	// Initialize Platform
-
 	PL_Init();
-	EVNT_Init();
-	KEY_Init();
 	KEY_EnableInterrupts();
 	CLS1_Init();
-
-	// Do work
-	for(;;) {
-		EVNT_HandleEvent(APP_HandleEvent);
-		KEY_Scan();
-		WAIT_Waitms(50); /* wait some time */
-	}
-
-	// Finalize Platform
-	PL_Deinit();
-	EVNT_Deinit();
-	KEY_Deinit();
-	CLS1_Deinit();
+	RTOS_Run();
 }
 
 void APP_HandleEvent(EVNT_Handle event) {

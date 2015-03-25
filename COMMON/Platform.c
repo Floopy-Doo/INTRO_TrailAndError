@@ -42,6 +42,10 @@ void PL_Init(void) {
 #if PL_HAS_BUZZER
   BUZ_Init();
 #endif
+#if PL_HAS_RTOS
+  RTOS_Init();
+#endif
+
 }
 
 void PL_Deinit(void) {

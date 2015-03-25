@@ -37,7 +37,7 @@
   /*!< Set to 1 to enable LED support, 0 otherwise */
 #define PL_HAS_EVENTS (1)
   /*!< Set to 1 to enable events, 0 otherwise */
-#define PL_HAS_TIMER    (1)
+#define PL_HAS_TIMER    (0)
   /*!< Set to 1 to enable timers, 0 otherwise */
 #define PL_HAS_KEYS           (1)
   /*!< Set to 1 to enable keys, 0 otherwise */
@@ -57,6 +57,8 @@
   /*!< Set to 1 for shell enabled, 0 otherwise */
 #define PL_HAS_BUZZER         (1 && PL_IS_ROBO)
   /*!< Set to 1 for buzzer enabled, 0 otherwise */
+#define PL_HAS_RTOS			  (1)
+/*!< Set to 1 for RTOS enabled, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
