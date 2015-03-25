@@ -51,6 +51,8 @@
 #include "ASerialLdd1.h"
 #include "SW1.h"
 #include "ExtIntLdd1.h"
+#include "BUZ1.h"
+#include "BitIoLdd3.h"
 
 
 #ifdef __cplusplus

@@ -18,10 +18,16 @@
 #include "Mealy.h"
 #include "Keys.h"
 #include "Trigger.h"
+#if PL_HAS_SHELL
+  #include "CLS1.h"
+#endif
+#if PL_HAS_BLTH
+  #include "BT1.h"
+#endif
 //#include "Buzzer.h"
 
 void PL_Init(void) {
-#if PL_HAS_LED
+#if LED_ENABLE
   LED_Init();
 #endif
 #if PL_HAS_EVENTS
@@ -29,6 +35,11 @@ void PL_Init(void) {
 #endif
 #if PL_HAS_TIMER
   TMR_Init();
+#endif
+#if PL_HAS_SHELL
+  CLS1_Init();
+#endif
+  BT1_Init();
 #endif
 #if PL_HAS_KEYS
   KEY_Init();
@@ -61,13 +72,19 @@ void PL_Deinit(void) {
 #if PL_HAS_KEYS
   KEY_Deinit();
 #endif
+#if PL_HAS_SHELL
+  CLS1_Deinit();
+#endif
+#if PL_HAS_BLTH
+  BT1_Deinit();
+#endif
 #if PL_HAS_TIMER
   TMR_Deinit();
 #endif
 #if PL_HAS_EVENTS
   EVNT_Deinit();
 #endif
-#if PL_HAS_LED
+#if LED_ENABLE
   LED_Deinit();
 #endif
 }
