@@ -18,6 +18,8 @@
 #include "Mealy.h"
 #include "Keys.h"
 #include "Trigger.h"
+#include "RTOS.h"
+
 #if PL_HAS_SHELL
   #include "CLS1.h"
 #endif
@@ -39,6 +41,7 @@ void PL_Init(void) {
 #if PL_HAS_SHELL
   CLS1_Init();
 #endif
+#if PL_HAS_BLTH
   BT1_Init();
 #endif
 #if PL_HAS_KEYS
