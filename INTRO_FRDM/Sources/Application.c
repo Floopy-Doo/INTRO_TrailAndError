@@ -15,14 +15,17 @@
 #include "Keys.h"
 #include "CLS1.h"
 #include "Trigger.h"
-
+#include "Shell.h"
+#include "RTOS.h"
 
 void APP_Start(void) {
 	// Initialize Platform
 	PL_Init();
 	KEY_EnableInterrupts();
 	CLS1_Init();
+	SHELL_Init();
 	RTOS_Run();
+
 }
 
 void APP_HandleEvent(EVNT_Handle event) {
