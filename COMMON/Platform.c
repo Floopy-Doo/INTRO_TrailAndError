@@ -18,7 +18,11 @@
 #include "Mealy.h"
 #include "Keys.h"
 #include "Trigger.h"
+#include "Buzzer.h"
+#include "Debounce.h"
 #include "RTOS.h"
+#include "Shell.h"
+#include "ShellQueue.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"
@@ -29,7 +33,7 @@
 //#include "Buzzer.h"
 
 void PL_Init(void) {
-#if LED_ENABLE
+#if PL_HAS_LED
   LED_Init();
 #endif
 #if PL_HAS_EVENTS
@@ -37,12 +41,6 @@ void PL_Init(void) {
 #endif
 #if PL_HAS_TIMER
   TMR_Init();
-#endif
-#if PL_HAS_SHELL
-  CLS1_Init();
-#endif
-#if PL_HAS_BLTH
-  BT1_Init();
 #endif
 #if PL_HAS_KEYS
   KEY_Init();
@@ -56,13 +54,36 @@ void PL_Init(void) {
 #if PL_HAS_BUZZER
   BUZ_Init();
 #endif
+#if PL_HAS_DEBOUNCE
+  DBNC_Init();
+#endif
 #if PL_HAS_RTOS
   RTOS_Init();
 #endif
+#if PL_HAS_SHELL
+  SHELL_Init();
+#endif
+#if PL_HAS_SHELL_QUEUE
+  SQUEUE_Init();
+#endif
+
+
 
 }
 
 void PL_Deinit(void) {
+#if PL_HAS_SHELL_QUEUE
+  SQUEUE_Deinit();
+#endif
+#if PL_HAS_SHELL
+  SHELL_Deinit();
+#endif
+#if PL_HAS_RTOS
+  RTOS_Deinit();
+#endif
+#if PL_HAS_DEBOUNCE
+  DBNC_Deinit();
+#endif
 #if PL_HAS_BUZZER
   BUZ_Deinit();
 #endif
@@ -75,19 +96,13 @@ void PL_Deinit(void) {
 #if PL_HAS_KEYS
   KEY_Deinit();
 #endif
-#if PL_HAS_SHELL
-  CLS1_Deinit();
-#endif
-#if PL_HAS_BLTH
-  BT1_Deinit();
-#endif
 #if PL_HAS_TIMER
   TMR_Deinit();
 #endif
 #if PL_HAS_EVENTS
   EVNT_Deinit();
 #endif
-#if LED_ENABLE
+#if PL_HAS_LED
   LED_Deinit();
 #endif
 }
