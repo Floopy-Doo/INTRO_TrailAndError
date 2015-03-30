@@ -21,6 +21,7 @@ typedef enum EVNT_Handle {
   EVNT_LED_OFF,			/*!< LEDs off Event */
   EVNT_LED_NEG,
   EVNT_HEARTBEAT,		/*!< LED Heartbeat Event */
+  EVNT_STARTUP,
 
 #if PL_NOF_KEYS >= 1
   EVNT_SW1_PRESSED,
