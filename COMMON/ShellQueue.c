@@ -18,6 +18,10 @@ static xQueueHandle SQUEUE_Queue;
 
 void SQUEUE_SendString(const unsigned char *str) {
   /*! \todo Implement function */
+	while((str=SQUEUE_ReceiveChar()) && str!='\0') {
+		CLS1_GetStdio()->stdOut(str);
+	}
+
 }
 
 unsigned char SQUEUE_ReceiveChar(void) {
