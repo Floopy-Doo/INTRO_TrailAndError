@@ -7,7 +7,7 @@
 #include "Platform.h"
 #include "LED.h"
 #include "LED_Robo.h"
-#include "LED_WAIT.h"
+#include "WAIT.h"
 #include "LedBit1.h"
 #include "LedBit2.h"
 
@@ -25,7 +25,7 @@ void LED_Test(void) {
 	int i;
 	LED_On(LED_FRONT_LEFT);
 	for (i = 0; i < 5; i++) {
-		LED_WAIT_Waitms(500);
+		WAIT_WaitOSms(500);
 		LED_Neg(LED_FRONT);
 	}
 	LED_All_Off();

@@ -33,35 +33,35 @@
 #endif
 
 
-#define LED_ENABLE (1)
+#define LED_ENABLE 			(1)
   /*!< Set to 1 to enable LED support, 0 otherwise */
-#define PL_HAS_EVENTS (1)
+#define PL_HAS_EVENTS 		(1)
   /*!< Set to 1 to enable events, 0 otherwise */
-#define PL_HAS_TIMER    (0)
+#define PL_HAS_TIMER    	(0)
   /*!< Set to 1 to enable timers, 0 otherwise */
-#define PL_HAS_KEYS           (1)
+#define PL_HAS_KEYS         (1)
   /*!< Set to 1 to enable keys, 0 otherwise */
-#define PL_HAS_KBI            (1)
+#define PL_HAS_KBI          (1)
   /*!< Set to 1 to enable key interrupt support, 0 otherwise */
-#define PL_HAS_KBI_NMI        (1 && PL_IS_FRDM && PL_HAS_JOYSTICK)
+#define PL_HAS_KBI_NMI      (1 && PL_IS_FRDM && PL_HAS_JOYSTICK)
   /*!< Set to 1 for special case on NMI/PTA pin on FRDM board, 0 otherwise */
-#define PL_HAS_MEALY          (1 && PL_NOF_LEDS>=1 && PL_NOF_KEYS>=1)
+#define PL_HAS_MEALY        (1 && PL_NOF_LEDS>=1 && PL_NOF_KEYS>=1)
   /*!< Set to 1 to enable Mealy sequential state machine, 0 otherwise */
-#define PL_HAS_RESET_KEY      (0 && PL_IS_FRDM && PL_HAS_KEYS)
+#define PL_HAS_RESET_KEY    (0 && PL_IS_FRDM && PL_HAS_KEYS)
   /*!< Set to 1 to use reset switch on FRDM as button, 0 otherwise */
-#define PL_HAS_JOYSTICK       (1 && PL_IS_FRDM && PL_HAS_KEYS)
+#define PL_HAS_JOYSTICK     (1 && PL_IS_FRDM && PL_HAS_KEYS)
   /*!< Set to 1 to enable joystick shield support, 0 otherwise */
-#define PL_HAS_TRIGGER        (1)
+#define PL_HAS_TRIGGER      (1)
   /*!< Set to 1 for trigger enabled, 0 otherwise */
-#define PL_HAS_SHELL          (1)
+#define PL_HAS_SHELL        (1)
   /*!< Set to 1 for shell enabled, 0 otherwise */
-#define PL_HAS_BUZZER         (1 && PL_IS_ROBO)
+#define PL_HAS_BUZZER       (1 && PL_IS_ROBO)
   /*!< Set to 1 for buzzer enabled, 0 otherwise */
-#define PL_HAS_RTOS			  (1)
+#define PL_HAS_RTOS			(1)
 /*!< Set to 1 for RTOS enabled, 0 otherwise */
-#define PL_HAS_USB CDC		  (1)
+#define PL_HAS_USB CDC		(1)
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
-#define PL_HAS_DEBOUNCE		  (1)
+#define PL_HAS_DEBOUNCE		(1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */
 
 

@@ -26,14 +26,16 @@
 #if PL_HAS_BLTH
   #include "BT1.h"
 #endif
-//#include "Buzzer.h"
-
+#if PL_HAS_BUZZER
+  #include "Buzzer.h"
+#endif
 void PL_Init(void) {
 #if LED_ENABLE
   LED_Init();
 #endif
 #if PL_HAS_EVENTS
   EVNT_Init();
+  EVNT_SetEvent(EVNT_INIT);
 #endif
 #if PL_HAS_TIMER
   TMR_Init();
@@ -63,6 +65,10 @@ void PL_Init(void) {
 }
 
 void PL_Deinit(void) {
+
+#if PL_HAS_RTOS
+  RTOS_Deinit();
+#endif
 #if PL_HAS_BUZZER
   BUZ_Deinit();
 #endif

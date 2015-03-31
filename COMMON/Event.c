@@ -41,8 +41,12 @@ void EVNT_ClearEvent(EVNT_Handle event) {
 }
 
 bool EVNT_EventIsSet(EVNT_Handle event) {
-  bool res;
-  return GET_EVENT(event);
+	CS1_CriticalVariable()		//Reentrent
+	bool res;
+	CS1_EnterCritical();
+	res = GET_EVENT(event);
+	CS1_ExitCritical();
+	return res;
 }
 
 bool EVNT_EventIsSetAutoClear(EVNT_Handle event) {
