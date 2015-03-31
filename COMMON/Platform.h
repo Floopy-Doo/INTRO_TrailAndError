@@ -63,7 +63,8 @@
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
 #define PL_HAS_DEBOUNCE		  (1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */
-
+#define PL_HAS_SHELL_QUEUE 	  (1)
+/*!< Set to 1 for ShellQueue enabled, 0 otherwise */
 
 
 /* if keys are using interrupts or are polled */

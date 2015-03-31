@@ -23,7 +23,6 @@ void APP_Start(void) {
 	PL_Init();
 	KEY_EnableInterrupts();
 	CLS1_Init();
-	SHELL_Init();
 	RTOS_Run();
 
 }
