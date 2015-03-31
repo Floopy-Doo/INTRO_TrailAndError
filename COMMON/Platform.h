@@ -59,11 +59,7 @@
   /*!< Set to 1 for buzzer enabled, 0 otherwise */
 #define PL_HAS_RTOS			(1)
 /*!< Set to 1 for RTOS enabled, 0 otherwise */
-<<<<<<< HEAD
 #define PL_HAS_USB CDC		(1)
-=======
-#define PL_HAS_USB_CDC		  (1)
->>>>>>> ea8e9b8a3aa5a9c027d23972c82e1efc2084a758
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
 #define PL_HAS_DEBOUNCE		(1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */

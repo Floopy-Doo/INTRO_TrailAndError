@@ -8,6 +8,7 @@
 
 #include "Platform.h"
 #if PL_HAS_SHELL_QUEUE
+#include "CLS1.h"
 #include "ShellQueue.h"
 #include "FRTOS1.h"
 

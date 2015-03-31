@@ -10,19 +10,20 @@
 #include "FRTOS1.h"
 #include "LED.h"
 #include "Application.h"
-#include "Platform.h"
-#include "LED.h"
 #include "Event.h"
 #include "Timer.h"
 #include "WAIT.h"
-#include "LED_FRDM.h"
 #include "Keys.h"
 #include "CLS1.h"
 #include "Trigger.h"
 
+
+
+
+
 static portTASK_FUNCTION(T1, pvParameters) {
   for(;;) {
-    LED1_Neg();
+    LED_Neg(LED_ALL);
     FRTOS1_vTaskDelay(100/portTICK_RATE_MS);
   }
 }
@@ -34,8 +35,6 @@ static void MainTask(void *pvParameters) {
 	KEY_Scan();
 		EVNT_HandleEvent(APP_HandleEvent);
 		FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
-	/*    LED1_Neg();
-	    FRTOS1_vTaskDelay(100/portTICK_RATE_MS);*/
 	}
 }
 

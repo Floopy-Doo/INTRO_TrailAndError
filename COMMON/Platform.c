@@ -80,12 +80,10 @@ void PL_Init(void) {
 }
 
 void PL_Deinit(void) {
-<<<<<<< HEAD
 
 #if PL_HAS_RTOS
   RTOS_Deinit();
 #endif
-=======
 #if PL_HAS_SHELL_QUEUE
   SQUEUE_Deinit();
 #endif
@@ -98,7 +96,6 @@ void PL_Deinit(void) {
 #if PL_HAS_DEBOUNCE
   DBNC_Deinit();
 #endif
->>>>>>> ea8e9b8a3aa5a9c027d23972c82e1efc2084a758
 #if PL_HAS_BUZZER
   BUZ_Deinit();
 #endif
