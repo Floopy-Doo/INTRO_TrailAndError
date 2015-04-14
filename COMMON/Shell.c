@@ -12,6 +12,8 @@
 #include "CLS1.h"
 #include "Application.h"
 #include "FRTOS1.h"
+#include "Reflectance.h"
+
 #if PL_HAS_USB_CDC
   #include "USB1.h"
 #endif
@@ -31,6 +33,9 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
   SHELL_ParseCommand, /* our own module parser */
 #if FRTOS1_PARSE_COMMAND_ENABLED
   FRTOS1_ParseCommand, /* FreeRTOS shell parser */
+#endif
+#if PL_HAS_LINE_SENSOR
+  REF_ParseCommand,
 #endif
 #if PL_HAS_BLUETOOTH
 #if BT1_PARSE_COMMAND_ENABLED

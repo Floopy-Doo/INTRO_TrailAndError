@@ -59,14 +59,18 @@
   /*!< Set to 1 for buzzer enabled, 0 otherwise */
 #define PL_HAS_RTOS			(1)
 /*!< Set to 1 for RTOS enabled, 0 otherwise */
-#define PL_HAS_USB CDC		(1)
+#define PL_HAS_USB_CDC		(1)
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
+#define PL_HAS_BLUETOOTH      (0 && PL_IS_ROBO)
+  /*!< Set to 1 if using Bluetooth, 0 otherwise */
 #define PL_HAS_DEBOUNCE		(1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */
-#define PL_HAS_SHELL_QUEUE 	  (1)
-/*!< Set to 1 for ShellQueue enabled, 0 otherwise */
-#define PL_HAS_LINE_SENSOR  (1 && PL_IS_ROBO)
-/*!< Set to 1 for Reflectance Line Sensor enabled, 0 otherwise */
+#define PL_HAS_SHELL_QUEUE    (1 && PL_HAS_SHELL)
+  /*!< Set to 1 if using shell queues, 0 otherwise */
+#define PL_HAS_LINE_SENSOR    (1 && PL_IS_ROBO)
+  /*!< Set to 1 if using line sensor, 0 otherwise */
+#define PL_HAS_REFLECTANCE    (1 && PL_HAS_LINE_SENSOR)
+  /*!< Set to 1 if using reflectance sensor array, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
