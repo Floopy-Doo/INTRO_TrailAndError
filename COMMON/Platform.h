@@ -65,7 +65,8 @@
 /*!< Set to 1 for Debounce enabled, 0 otherwise */
 #define PL_HAS_SHELL_QUEUE 	  (1)
 /*!< Set to 1 for ShellQueue enabled, 0 otherwise */
-
+#define PL_HAS_LINE_SENSOR  (1 && PL_IS_ROBO)
+/*!< Set to 1 for Reflectance Line Sensor enabled, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM

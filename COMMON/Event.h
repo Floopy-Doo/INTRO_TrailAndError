@@ -22,6 +22,7 @@ typedef enum EVNT_Handle {
   EVNT_LED_NEG,
   EVNT_HEARTBEAT,		/*!< LED Heartbeat Event */
   EVNT_STARTUP,
+  EVNT_REF_START_STOP_CALIBRATION, //Needed for Reflectance Sensor. Details: Lab #25
 
 #if PL_NOF_KEYS >= 1
   EVNT_SW1_PRESSED,

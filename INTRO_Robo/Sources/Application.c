@@ -12,6 +12,7 @@
 #include "CLS1.h"
 #include "Buzzer.h"
 #include "FRTOS1.h"
+#include "RTOS.h"
 
 /**
  * Startup code for the application.
