@@ -61,6 +61,7 @@ void APP_HandleEvent(EVNT_Handle event) {
 		break;
 	case EVNT_REF_START_STOP_CALIBRATION:
 		//\Todo: Calibrate the Reflectance Sensor
+
 		break;
 #if PL_NOF_KEYS >= 1
 	case EVNT_SW1_PRESSED:
