@@ -59,6 +59,9 @@ void APP_HandleEvent(EVNT_Handle event) {
 	case EVNT_LED_OFF:
 		LED_Off(LED_ALL);
 		break;
+	case EVNT_REF_START_STOP_CALIBRATION:
+		//\Todo: Calibrate the Reflectance Sensor
+		break;
 #if PL_NOF_KEYS >= 1
 	case EVNT_SW1_PRESSED:
 		LED_On(LED_FRONT_LEFT);
