@@ -78,13 +78,17 @@ void PL_Init(void) {
 #if PL_HAS_LINE_SENSOR
   REF_Init();
 #endif
-
-
+#if PL_HAS_MOTOR
+  MOT_Init();
+#endif
 
 }
 
 void PL_Deinit(void) {
 
+#if PL_HAS_MOTOR
+  MOT_Deinit();
+#endif
 #if PL_HAS_LINE_SENSOR
   REF_Deinit();
 #endif

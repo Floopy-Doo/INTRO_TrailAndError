@@ -3,8 +3,8 @@
 * \author Florian Bucher <florian.bucher@stud.hslu.ch>
 * Timer implmentation for robo k22
 */
-
-#include "TI1.h"
+#if PL_HAS_TIMER
+//#include "TI1.h"
 #include "Timer.h"
 #include "Event.h"
 #include "LED.h"
@@ -33,3 +33,4 @@ void TMR_OnInterrupt(void) {
 		trmTickCount = 0;
 	}
 }
+#endif

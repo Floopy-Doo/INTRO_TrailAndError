@@ -13,17 +13,17 @@
 
 static xQueueHandle SQUEUE_Queue;
 
-#if SQUEUE_SINGLE_CHAR
+#if PL_SQUEUE_SINGLE_CHAR
   #define SQUEUE_LENGTH      32 /* items in queue, that's my buffer size */
   #define SQUEUE_ITEM_SIZE   1  /* each item is a single character */
 #else
-  #define QUEUE_LENGTH       5 /* items in queue */
-  #define QUEUE_ITEM_SIZE    sizeof(char_t*) /* each item is a char pointer to a string, allocated on the heap */
+  #define SQUEUE_LENGTH      5 /* items in queue */
+  #define SQUEUE_ITEM_SIZE   sizeof(char_t*) /* each item is a char pointer to a string, allocated on the heap */
 #endif
 
 void SQUEUE_SendString(const unsigned char *str) {
   /*! \todo Implement function */
-#if 1
+#if PL_SQUEUE_SINGLE_CHAR
   while(*str!='\0') {
     if (FRTOS1_xQueueSendToBack(SQUEUE_Queue, str, 100/portTICK_RATE_MS)!=pdPASS) {
       /*for(;;){}*/ /* ups? */ /* loosing character */
@@ -34,16 +34,16 @@ void SQUEUE_SendString(const unsigned char *str) {
   unsigned char *ptr;
   size_t bufSize;
 
-  bufSize = UTIL1_strlen(msg)+1;
+  bufSize = UTIL1_strlen(str)+1;
   ptr = FRTOS1_pvPortMalloc(bufSize);
-  UTIL1_strcpy(ptr, bufSize, msg);
+  UTIL1_strcpy(ptr, bufSize, str);
   if (FRTOS1_xQueueSendToBack(SQUEUE_Queue, &ptr, portMAX_DELAY)!=pdPASS) {
     for(;;){} /* ups? */
   }
 #endif
 }
 
-#if 1
+#if PL_SQUEUE_SINGLE_CHAR
 unsigned char SQUEUE_ReceiveChar(void) {
   /*! \todo Implement function */
   unsigned char ch;
@@ -57,7 +57,7 @@ unsigned char SQUEUE_ReceiveChar(void) {
   }
 }
 #else
-const unsigned char *QUEUE_ReceiveMessage(void) {
+const unsigned char *SQUEUE_ReceiveMessage(void) {
   const unsigned char *ptr;
   portBASE_TYPE res;
 

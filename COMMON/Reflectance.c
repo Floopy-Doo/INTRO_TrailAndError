@@ -23,15 +23,30 @@
 #include "Application.h"
 #include "Event.h"
 #include "Shell.h"
-//#include "NVM_Config.h"
 #if PL_HAS_BUZZER
   #include "Buzzer.h"
 #endif
+#if PL_HAS_CONFIG_NVM
+  #include "NVM_Config.h"
+#endif
+
 #define REF_NOF_SENSORS 6 /* number of sensors */
 #define REF_SENSOR1_IS_LEFT   1 /* sensor number one is on the left side */
 #define REF_MIN_LINE_VAL      0x60   /* minimum value indicating a line */
 #define REF_MIN_NOISE_VAL     0x40   /* values below this are not added to the weighted sum */
 #define REF_USE_WHITE_LINE    0  /* if set to 1, then the robot is using a white (on black) line, otherwise a black (on white) line */
+
+#define REF_START_STOP_CALIB  1 /* start/stop calibration commands */
+#define REF_MEASURE_TIMEOUT   1 /* use timeout for measurement */
+
+#if REF_MEASURE_TIMEOUT
+  #define REF_SENSOR_TIMEOUT_US  1500  /* after this time, consider no reflection (black). Must be smaller than the timeout period of the RefCnt timer! */
+  #define REF_SENSOR_TIMOUT_VAL  ((RefCnt_CNT_INP_FREQ_U_0/1000)*REF_SENSOR_TIMEOUT_US)/1000
+#endif
+
+#if REF_START_STOP_CALIB
+  static xSemaphoreHandle REF_StartStopSem = NULL;
+#endif
 
 typedef enum {
   REF_STATE_INIT,
@@ -106,37 +121,55 @@ static const SensorFctType SensorFctArray[REF_NOF_SENSORS] = {
   {S6_SetOutput, S6_SetInput, S6_SetVal, S6_GetVal},
 };
 
+#if REF_START_STOP_CALIB
+void REF_CalibrateStartStop(void) {
+  if (refState==REF_STATE_NOT_CALIBRATED || refState==REF_STATE_CALIBRATING || refState==REF_STATE_READY) {
+    (void)xSemaphoreGive(REF_StartStopSem);
+  }
+}
+#endif
+
+/*!
+ * \brief Measures the time until the sensor discharges
+ * \param raw Array to store the raw values.
+ * \return ERR_OVERFLOW if there is a timeout, ERR_OK otherwise
+ */
 static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
   uint8_t cnt; /* number of sensor */
   uint8_t i;
+  RefCnt_TValueType timerVal;
 
   LED_IR_On(); /* IR LED's on */
-  WAIT_Waitus(200); /*! \todo adjust time as needed */
-
+  WAIT_Waitus(200);
   for(i=0;i<REF_NOF_SENSORS;i++) {
     SensorFctArray[i].SetOutput(); /* turn I/O line as output */
     SensorFctArray[i].SetVal(); /* put high */
     raw[i] = MAX_SENSOR_VALUE;
   }
-  WAIT_Waitus(50); /* give some time to charge the capacitor */
-  (void)RefCnt_ResetCounter(timerHandle); /* reset timer counter */
+  WAIT_Waitus(50); /* give at least 10 us to charge the capacitor */
   for(i=0;i<REF_NOF_SENSORS;i++) {
     SensorFctArray[i].SetInput(); /* turn I/O line as input */
   }
+  (void)RefCnt_ResetCounter(timerHandle); /* reset timer counter */
   do {
-    /*! \todo Be aware that this might block for a long time, if discharging takes long. Consider using a timeout. */
     cnt = 0;
+    timerVal = RefCnt_GetCounterValue(timerHandle);
+#if REF_MEASURE_TIMEOUT
+    if (timerVal>REF_SENSOR_TIMOUT_VAL) {
+      break; /* get out of while loop */
+    }
+#endif
     for(i=0;i<REF_NOF_SENSORS;i++) {
       if (raw[i]==MAX_SENSOR_VALUE) { /* not measured yet? */
         if (SensorFctArray[i].GetVal()==0) {
-          raw[i] = RefCnt_GetCounterValue(timerHandle);
+          raw[i] = timerVal;
         }
       } else { /* have value */
         cnt++;
       }
     }
   } while(cnt!=REF_NOF_SENSORS);
-  LED_IR_Off();
+  LED_IR_Off(); /* IR LED's off */
 }
 
 static void REF_CalibrateMinMax(SensorTimeType min[REF_NOF_SENSORS], SensorTimeType max[REF_NOF_SENSORS], SensorTimeType raw[REF_NOF_SENSORS]) {
@@ -236,6 +269,9 @@ static void REF_Measure(void) {
 static uint8_t PrintHelp(const CLS1_StdIOType *io) {
   CLS1_SendHelpStr((unsigned char*)"ref", (unsigned char*)"Group of Reflectance commands\r\n", io->stdOut);
   CLS1_SendHelpStr((unsigned char*)"  help|status", (unsigned char*)"Print help or status information\r\n", io->stdOut);
+#if REF_START_STOP_CALIB
+  CLS1_SendHelpStr((unsigned char*)"  calib (start|stop)", (unsigned char*)"Start/Stop calibrating while moving sensor over line\r\n", io->stdOut);
+#endif
   return ERR_OK;
 }
 
@@ -272,11 +308,11 @@ static uint8_t PrintStatus(const CLS1_StdIOType *io) {
   UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"\r\n");
   CLS1_SendStatusStr((unsigned char*)"  min line", buf, io->stdOut);
 
-
-  //REF_SENSOR_TIMEOUT_US noch undefiniert. Muss in ein bis zwei wochen noch angepasst werden da erst dann ein neues File zur Verfügung steht
-  //UTIL1_Num16uToStr(buf, sizeof(buf), REF_SENSOR_TIMEOUT_US);
-  //UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" us\r\n");
-  //CLS1_SendStatusStr((unsigned char*)"  timeout", buf, io->stdOut);
+#if REF_MEASURE_TIMEOUT
+  UTIL1_Num16uToStr(buf, sizeof(buf), REF_SENSOR_TIMEOUT_US);
+  UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" us\r\n");
+  CLS1_SendStatusStr((unsigned char*)"  timeout", buf, io->stdOut);
+#endif
 
   CLS1_SendStatusStr((unsigned char*)"  line val", (unsigned char*)"", io->stdOut);
   buf[0] = '\0'; UTIL1_strcatNum16s(buf, sizeof(buf), refCenterLineVal);
@@ -339,6 +375,26 @@ byte REF_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOT
   } else if ((UTIL1_strcmp((char*)cmd, CLS1_CMD_STATUS)==0) || (UTIL1_strcmp((char*)cmd, "ref status")==0)) {
     *handled = TRUE;
     return PrintStatus(io);
+#if REF_START_STOP_CALIB
+  } else if (UTIL1_strcmp((char*)cmd, "ref calib start")==0) {
+    if (refState==REF_STATE_NOT_CALIBRATED || refState==REF_STATE_READY) {
+      REF_CalibrateStartStop();
+    } else {
+      CLS1_SendStr((unsigned char*)"ERROR: cannot start calibration, must not be calibrating or be ready.\r\n", io->stdErr);
+      return ERR_FAILED;
+    }
+    *handled = TRUE;
+    return ERR_OK;
+  } else if (UTIL1_strcmp((char*)cmd, "ref calib stop")==0) {
+    if (refState==REF_STATE_CALIBRATING) {
+      REF_CalibrateStartStop();
+    } else {
+      CLS1_SendStr((unsigned char*)"ERROR: can only stop if calibrating.\r\n", io->stdErr);
+      return ERR_FAILED;
+    }
+    *handled = TRUE;
+    return ERR_OK;
+#endif
   }
   return ERR_OK;
 }
@@ -355,11 +411,11 @@ static void REF_StateMachine(void) {
     case REF_STATE_NOT_CALIBRATED:
       REF_MeasureRaw(SensorRaw);
       /*! \todo Add a new event to your event module...*/
-      if (EVNT_EventIsSet(EVNT_REF_START_STOP_CALIBRATION)) {
-        EVNT_ClearEvent(EVNT_REF_START_STOP_CALIBRATION);
+#if REF_START_STOP_CALIB
+      if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_START_CALIBRATION;
-        break;
       }
+#endif
       break;
     
     case REF_STATE_START_CALIBRATION:
@@ -377,10 +433,11 @@ static void REF_StateMachine(void) {
 #if PL_HAS_BUZZER
       (void)BUZ_Beep(300, 20);
 #endif
-      if (EVNT_EventIsSet(EVNT_REF_START_STOP_CALIBRATION)) {
-        EVNT_ClearEvent(EVNT_REF_START_STOP_CALIBRATION);
+#if REF_START_STOP_CALIB
+      if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_STOP_CALIBRATION;
       }
+#endif
       break;
     
     case REF_STATE_STOP_CALIBRATION:
@@ -390,10 +447,11 @@ static void REF_StateMachine(void) {
         
     case REF_STATE_READY:
       REF_Measure();
-      if (EVNT_EventIsSet(EVNT_REF_START_STOP_CALIBRATION)) {
-        EVNT_ClearEvent(EVNT_REF_START_STOP_CALIBRATION);
+#if REF_START_STOP_CALIB
+      if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_START_CALIBRATION;
       }
+#endif
       break;
   } /* switch */
 }
@@ -410,6 +468,14 @@ void REF_Deinit(void) {
 }
 
 void REF_Init(void) {
+#if REF_START_STOP_CALIB
+  FRTOS1_vSemaphoreCreateBinary(REF_StartStopSem);
+  if (REF_StartStopSem==NULL) { /* semaphore creation failed */
+    for(;;){} /* error */
+  }
+  (void)FRTOS1_xSemaphoreTake(REF_StartStopSem, 0); /* empty token */
+  FRTOS1_vQueueAddToRegistry(REF_StartStopSem, "RefStartStopSem");
+#endif
   refState = REF_STATE_INIT;
   timerHandle = RefCnt_Init(NULL);
   /*! \todo You might need to adjust priority or other task settings */

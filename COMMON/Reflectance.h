@@ -30,6 +30,11 @@
 #endif
 
 /*!
+ * \brief Starts or stops the calibration.
+ */
+void REF_CalibrateStartStop(void);
+
+/*!
  * \brief returns the current line value (weighted average).
  */
 uint16_t REF_GetLineValue(void);

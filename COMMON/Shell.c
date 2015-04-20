@@ -12,8 +12,6 @@
 #include "CLS1.h"
 #include "Application.h"
 #include "FRTOS1.h"
-#include "Reflectance.h"
-
 #if PL_HAS_USB_CDC
   #include "USB1.h"
 #endif
@@ -22,6 +20,12 @@
 #endif
 #if PL_HAS_SHELL_QUEUE
   #include "ShellQueue.h"
+#endif
+#if PL_HAS_LINE_SENSOR
+  #include "Reflectance.h"
+#endif
+#if PL_HAS_MOTOR
+  #include "Motor.h"
 #endif
 
 /* forward declaration */
@@ -34,13 +38,18 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #if FRTOS1_PARSE_COMMAND_ENABLED
   FRTOS1_ParseCommand, /* FreeRTOS shell parser */
 #endif
-#if PL_HAS_LINE_SENSOR
-  REF_ParseCommand,
-#endif
 #if PL_HAS_BLUETOOTH
-#if BT1_PARSE_COMMAND_ENABLED
+  #if BT1_PARSE_COMMAND_ENABLED
   BT1_ParseCommand,
+  #endif
 #endif
+#if PL_HAS_LINE_SENSOR
+  #if REF_PARSE_COMMAND_ENABLED
+  REF_ParseCommand,
+  #endif
+#endif
+#if PL_HAS_MOTOR
+  MOT_ParseCommand,
 #endif
   NULL /* Sentinel */
 };
@@ -175,14 +184,29 @@ static portTASK_FUNCTION(ShellTask, pvParameters) {
 #if PL_HAS_SHELL_QUEUE
     {
       /*! \todo Handle shell queue */
+  #if PL_SQUEUE_SINGLE_CHAR
       unsigned char ch;
 
       while((ch=SQUEUE_ReceiveChar()) && ch!='\0') {
         ioLocal->stdOut(ch);
-#if PL_HAS_BLUETOOTH
+  #if PL_HAS_BLUETOOTH
         BT_stdio.stdOut(ch); /* copy on Bluetooth */
-#endif
+  #endif
+  #if PL_HAS_USB_CDC
+        CDC_stdio.stdOut(ch); /* copy on USB CDC */
+  #endif
       }
+  #else
+      {
+        const unsigned char *msg;
+
+        msg = SQUEUE_ReceiveMessage();
+        if (msg!=NULL) {
+          CLS1_SendStr(msg, CLS1_GetStdio()->stdOut);
+          FRTOS1_vPortFree((void*)msg);
+        }
+      }
+  #endif
     }
 #endif
     FRTOS1_vTaskDelay(10/portTICK_RATE_MS);

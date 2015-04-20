@@ -71,6 +71,7 @@
   /*!< Set to 1 if using line sensor, 0 otherwise */
 #define PL_HAS_REFLECTANCE    (1 && PL_HAS_LINE_SENSOR)
   /*!< Set to 1 if using reflectance sensor array, 0 otherwise */
+#define PL_HAS_MOTOR 		(1 && PL_IS_ROBO)
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
