@@ -24,6 +24,7 @@
 #include "Shell.h"
 #include "ShellQueue.h"
 #include "Reflectance.h"
+#include "Motor.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"

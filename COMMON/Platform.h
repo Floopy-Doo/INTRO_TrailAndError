@@ -74,8 +74,13 @@
 #define PL_HAS_MOTOR 		(1 && PL_IS_ROBO)
   /*!< Set to 1 if using motors, 0 otherwise */
 #define PL_HAS_QUAD_CALIBRATION (1 && PL_IS_ROBO)
+  /*!< Set to 1 if using Quadratur Signal Calibration, 0 otherwise */
 #define PL_HAS_MCP4728 		(1 && PL_IS_ROBO)
-
+  /*!< Set to 1 if using Quadratur Signal Calibration with DAC-IC: MCP4728, 0 otherwise */
+#define PL_HAS_MOTOR_TACHO  (1 && PL_HAS_QUAD_CALIBRATION)
+  /*!< Set to 1 if using the Tacho, 0 otherwise */
+#define	PL_HAS_CONFIG_NVM   (1)
+/*!< Set to 1 if using NVM, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM

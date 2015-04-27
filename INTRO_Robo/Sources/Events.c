@@ -46,6 +46,9 @@ extern "C" {
 #if PL_HAS_KEYS
   #include "Keys.h"
 #endif
+#if PL_HAS_MOTOR_TACHO
+  #include "Tacho.h"
+#endif
 
 /*
 ** ===================================================================
@@ -152,7 +155,11 @@ void FRTOS1_vApplicationTickHook(void)
   /* Called for every RTOS tick. */
   /* Write your code here ... */
 #if !PL_HAS_TIMER && PL_HAS_TRIGGER
-	TRG_IncTick();
+	TRG_IncTick();		//Bei jedem Tick wird IncTick aufgerufen
+#endif
+
+#if PL_HAS_MOTOR_TACHO
+	TACHO_Sample(); 	//Bei jedem Tick wird Sample aufgerufen
 #endif
 }
 
