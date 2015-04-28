@@ -3,6 +3,8 @@
 * \author Florian Bucher <florian.bucher@stud.hslu.ch>
 * Timer implmentation for robo k22
 */
+
+#include "Platform.h"
 #if PL_HAS_TIMER
 //#include "TI1.h"
 #include "Timer.h"
@@ -10,14 +12,15 @@
 #include "LED.h"
 #include "Trigger.h"
 
+
 void TMR_Init() {
-	TI1_Enable();
-	TI1_EnableEvent();
+	/*TI1_Enable();
+	TI1_EnableEvent();*/
 }
 
 void TMR_Deinit() {
-	TI1_Disable();
-	TI1_DisableEvent();
+	/*TI1_Disable();
+	TI1_DisableEvent();*/
 }
 
 void TMR_OnInterrupt(void) {
@@ -27,9 +30,20 @@ void TMR_OnInterrupt(void) {
 	// increase trigger tick
 	TRG_IncTick();
 
-	// send out heartbeat event every second
-	if ((++trmTickCount * TMR_TICK_MS) % 1000 == 0) {
-		EVNT_SetEvent(EVNT_HEARTBEAT);
+	// do smthg / event every 10ms
+	if ((++trmTickCount * TMR_TICK_MS) % 10 == 0) {
+		//Do smthg
+
+
+
+		/*bool isLeft = 1;
+		bool isRight = 0;
+		int32_t currSpeed = TACHO_GetSpeed(isLeft);
+		int32_t setSpeed = 0;
+		//PID_Config *config = ;
+
+		//PID_SpeedCfg(currSpeed, setSpeed, isLeft, config);
+*/
 		trmTickCount = 0;
 	}
 }

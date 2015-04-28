@@ -85,9 +85,9 @@ void Cpu_OnNMIINT(void)
 void TI1_OnInterrupt(void)
 {
   /* Write your code here ... */
-#if PL_HAS_TIMER
+/*#if PL_HAS_TIMER
 	TMR_OnInterrupt();
-#endif
+#endif*/  //NOW USED IN FRTOS TIMER
 }
 
 /*
@@ -156,6 +156,10 @@ void FRTOS1_vApplicationTickHook(void)
   /* Write your code here ... */
 #if !PL_HAS_TIMER && PL_HAS_TRIGGER
 	TRG_IncTick();		//Bei jedem Tick wird IncTick aufgerufen
+#endif
+
+#if PL_HAS_TIMER
+	TMR_OnInterrupt();
 #endif
 
 #if PL_HAS_MOTOR_TACHO

@@ -25,6 +25,7 @@
 #include "ShellQueue.h"
 #include "Reflectance.h"
 #include "Motor.h"
+#include "Pid.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"
@@ -82,11 +83,23 @@ void PL_Init(void) {
 #if PL_HAS_MOTOR
   MOT_Init();
 #endif
+#if PL_HAS_PID
+  PID_Init();
+#endif
+#if PL_HAS_DRIVE
+  DRV_Init();
+#endif
 
 }
 
 void PL_Deinit(void) {
 
+#if PL_HAS_DRIVE
+  DRV_Deinit();
+#endif
+#if PL_HAS_PID
+  PID_Deinit();
+#endif
 #if PL_HAS_MOTOR
   MOT_Deinit();
 #endif

@@ -37,7 +37,7 @@
   /*!< Set to 1 to enable LED support, 0 otherwise */
 #define PL_HAS_EVENTS 		(1)
   /*!< Set to 1 to enable events, 0 otherwise */
-#define PL_HAS_TIMER    	(0)
+#define PL_HAS_TIMER    	(1)
   /*!< Set to 1 to enable timers, 0 otherwise */
 #define PL_HAS_KEYS         (1)
   /*!< Set to 1 to enable keys, 0 otherwise */
@@ -61,7 +61,7 @@
 /*!< Set to 1 for RTOS enabled, 0 otherwise */
 #define PL_HAS_USB_CDC		(1)
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
-#define PL_HAS_BLUETOOTH    (0 && PL_IS_ROBO)
+#define PL_HAS_BLUETOOTH    (1 && PL_IS_ROBO)
   /*!< Set to 1 if using Bluetooth, 0 otherwise */
 #define PL_HAS_DEBOUNCE		(1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */
@@ -81,6 +81,10 @@
   /*!< Set to 1 if using the Tacho, 0 otherwise */
 #define	PL_HAS_CONFIG_NVM   (1)
 /*!< Set to 1 if using NVM, 0 otherwise */
+#define PL_HAS_PID 			(1 && PL_HAS_MOTOR)
+/*!< Set to 1 if using Closed Loop Controller PID, 0 otherwise */
+#define PL_HAS_DRIVE		(1 && PL_HAS_MOTOR)
+/*!< Set to 1 if using Drive, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
