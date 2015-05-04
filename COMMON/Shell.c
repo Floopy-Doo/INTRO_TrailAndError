@@ -44,6 +44,13 @@
 #if PL_HAS_DRIVE
 	#include "Drive.h"
 #endif
+#if PL_HAS_ULTRASONIC
+	#include "Ultrasonic.h"
+#endif
+#if PL_HAS_ACCEL
+	#include "MMA1.h"
+#endif
+
 
 
 /* forward declaration */
@@ -85,6 +92,12 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #endif
 #if PL_HAS_DRIVE
   DRV_ParseCommand,
+#endif
+#if PL_HAS_ULTRASONIC
+	US_ParseCommand,
+#endif
+#if PL_HAS_ACCEL
+	MMA1_ParseCommand,
 #endif
 
   NULL /* Sentinel */

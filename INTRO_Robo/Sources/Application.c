@@ -13,6 +13,7 @@
 #include "Buzzer.h"
 #include "FRTOS1.h"
 #include "RTOS.h"
+#include "Reflectance.h"
 
 /**
  * Startup code for the application.
@@ -60,17 +61,18 @@ void APP_HandleEvent(EVNT_Handle event) {
 		LED_Off(LED_ALL);
 		break;
 	case EVNT_REF_START_STOP_CALIBRATION:
-		//\Todo: Calibrate the Reflectance Sensor
-
+		REF_CalibrateStartStop();
 		break;
 #if PL_NOF_KEYS >= 1
 	case EVNT_SW1_PRESSED:
+		EVNT_SetEvent(EVNT_REF_START_STOP_CALIBRATION);
 		LED_On(LED_FRONT_LEFT);
 		CLS1_SendStr("Button Pressed: Hello you :P! \r\n",
 				CLS1_GetStdio()->stdOut);
 		LED_Off(LED_FRONT_LEFT);
 		break;
 #endif
+
 	default: /* do nothing */
 		break;
 	}

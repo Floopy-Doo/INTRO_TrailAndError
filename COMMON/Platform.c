@@ -26,6 +26,9 @@
 #include "Reflectance.h"
 #include "Motor.h"
 #include "Pid.h"
+#include "Ultrasonic.h"
+#include "Drive.h"
+#include "Accel.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"
@@ -36,6 +39,9 @@
 #if PL_HAS_BUZZER
   #include "Buzzer.h"
 #endif
+
+
+
 void PL_Init(void) {
 #if PL_HAS_LED
   LED_Init();
@@ -89,11 +95,24 @@ void PL_Init(void) {
 #if PL_HAS_DRIVE
   DRV_Init();
 #endif
+#if PL_HAS_ULTRASONIC
+  US_Init();
+#endif
+#if PL_HAS_ACCEL
+  ACCEL_Init();
+#endif
+
 
 }
 
 void PL_Deinit(void) {
 
+#if PL_HAS_ACCEL
+  ACCEL_Deinit();
+#endif
+#if PL_HAS_ULTRASONIC
+  US_Deinit();
+#endif
 #if PL_HAS_DRIVE
   DRV_Deinit();
 #endif
