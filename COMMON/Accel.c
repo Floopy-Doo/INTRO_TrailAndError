@@ -10,6 +10,7 @@
 
 #if PL_HAS_ACCEL
 #include "Accel.h"    /* our own interface */
+
 #include "MMA1.h"     /* interface to accelerometer */
 
 void ACCEL_GetValues(int16_t *x, int16_t *y, int16_t *z) {

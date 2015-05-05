@@ -12,7 +12,7 @@
 
 #include "LedBit1.h"
 #include "LedBit2.h"
-#include "LedBit3.h"
+//#include "LedBit3.h"
 #include "WAIT.h"
 #include "Trigger.h"
 
@@ -47,13 +47,13 @@ void LED_Close(void) {}
 void LED_On(LED_Set leds) {
 	if (leds & LED_RED) LedBit1_PutVal(LED_ON);
 	if (leds & LED_GREEN) LedBit2_PutVal(LED_ON);
-	if (leds & LED_BLUE) LedBit3_PutVal(LED_ON);
+	//if (leds & LED_BLUE) LedBit3_PutVal(LED_ON);
 }
 
 void LED_Off(LED_Set leds) {
 	if (leds & LED_RED) LedBit1_PutVal(LED_OFF);
 	if (leds & LED_GREEN) LedBit2_PutVal(LED_OFF);
-	if (leds & LED_BLUE) LedBit3_PutVal(LED_OFF);
+	//if (leds & LED_BLUE) LedBit3_PutVal(LED_OFF);
 }
 
 void LED_All_Off(void) {
@@ -66,11 +66,11 @@ void LED_All_On(void) {
 void LED_Neg(LED_Set leds) {
 	if (leds & LED_GREEN) LedBit2_NegVal();
 	if (leds & LED_BLUE) LedBit1_NegVal();
-	if (leds & LED_RED) LedBit3_NegVal();
+	//if (leds & LED_RED) LedBit3_NegVal();
 }
 
 LED_Status LED_Get(LED_Set leds) {
-	uint8 status = (LedBit2_GetVal()<<2) & (LedBit1_GetVal()<<1) & (LedBit3_GetVal()<<3);
+	uint8 status = (LedBit2_GetVal()<<2) & (LedBit1_GetVal()<<1); //& (LedBit3_GetVal()<<3);
 	if (leds & status) {
 		return LED_ON;
 	}
