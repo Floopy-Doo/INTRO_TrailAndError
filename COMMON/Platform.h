@@ -89,6 +89,7 @@
 /*!< Set to 1 if using Ultrasonic Sensor, 0 otherwise */
 #define PL_HAS_ACCEL 		(1)
 /*!< Set to 1 if using Accelometer Sensor, 0 otherwise */
+#define PL_HAS_RADIO		(1)
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM

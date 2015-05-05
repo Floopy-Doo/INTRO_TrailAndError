@@ -29,6 +29,7 @@
 #include "Ultrasonic.h"
 #include "Drive.h"
 #include "Accel.h"
+#include "RNet_App.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"
@@ -101,12 +102,17 @@ void PL_Init(void) {
 #if PL_HAS_ACCEL
   ACCEL_Init();
 #endif
+#if PL_HAS_RADIO
+  RNETA_Init();
+#endif
 
 
 }
 
 void PL_Deinit(void) {
-
+#if PL_HAS_RADIO
+  RNETA_Deinit();
+#endif
 #if PL_HAS_ACCEL
   ACCEL_Deinit();
 #endif

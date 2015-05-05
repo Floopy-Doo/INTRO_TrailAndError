@@ -50,6 +50,9 @@
 #if PL_HAS_ACCEL
 	#include "MMA1.h"
 #endif
+#if PL_HAS_RADIO
+	#include "RNet_App.h"
+#endif
 
 
 
@@ -98,6 +101,9 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #endif
 #if PL_HAS_ACCEL
 	MMA1_ParseCommand,
+#endif
+#if PL_HAS_RADIO
+	RNETA_ParseCommand,
 #endif
 
   NULL /* Sentinel */
