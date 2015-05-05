@@ -40,6 +40,13 @@ void APP_Start(void) {
 	PL_Deinit();
 }
 
+
+void APP_DebugPrint(unsigned char *str) {
+#if PL_HAS_SHELL
+  SHELL_SendString(str);
+#endif
+}
+
 /*
  * Match the event to a code section
  */
