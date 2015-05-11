@@ -61,7 +61,7 @@
 /*!< Set to 1 for RTOS enabled, 0 otherwise */
 #define PL_HAS_USB_CDC		(1)
 /*!< Set to 1 for USB CDC enabled, 0 otherwise */
-#define PL_HAS_BLUETOOTH    (0 && PL_IS_ROBO)
+#define PL_HAS_BLUETOOTH    (1 && PL_IS_ROBO)
   /*!< Set to 1 if using Bluetooth, 0 otherwise */
 #define PL_HAS_DEBOUNCE		(1)
 /*!< Set to 1 for Debounce enabled, 0 otherwise */

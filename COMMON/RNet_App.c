@@ -25,6 +25,7 @@
 #if PL_HAS_REMOTE
   #include "Remote.h"
 #endif
+#include "DriveFunction.h"
 
 static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 
@@ -66,6 +67,34 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
       UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"\r\n");
       CLS1_SendStr(buf, io->stdOut);
 #endif /* PL_HAS_SHELL */      
+
+#if PL_IS_ROBO
+      //Setze entsprechenden State in Statemachine
+
+      switch (val)
+      {
+		case 1:
+		  REMOTE_SetOnOff(!REMOTE_GetOnOff());
+		  val = 0;
+		break;
+
+		case 2:
+		  if(DRIVEFCNT_GetEVENT() != DRIVEFCNT_SEARCH_FOR_ENEMYS){
+			  DRIVEFCNT_SetEVENT(DRIVEFCNT_SEARCH_FOR_ENEMYS);
+			  val = 0;
+		  }
+		  else{
+			  DRIVEFCNT_SetEVENT(DRIVEFCNT_STARTUP);
+			  val = 0;
+		  }
+		break;
+
+		default:
+
+		break;
+      }
+#endif
+
       return ERR_OK;
     default: /*! \todo Handle your own messages here */
       break;

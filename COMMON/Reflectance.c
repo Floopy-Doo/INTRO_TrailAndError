@@ -23,6 +23,9 @@
 #include "Application.h"
 #include "Event.h"
 #include "Shell.h"
+#include "DriveFunction.h"
+#include "NVM_Config.h"
+
 #if PL_HAS_BUZZER
   #include "Buzzer.h"
 #endif
@@ -34,7 +37,7 @@
 #define REF_SENSOR1_IS_LEFT   1 /* sensor number one is on the left side */
 #define REF_MIN_LINE_VAL      0x60   /* minimum value indicating a line */
 #define REF_MIN_NOISE_VAL     0x40   /* values below this are not added to the weighted sum */
-#define REF_USE_WHITE_LINE    0  /* if set to 1, then the robot is using a white (on black) line, otherwise a black (on white) line */
+#define REF_USE_WHITE_LINE    1  /* if set to 1, then the robot is using a white (on black) line, otherwise a black (on white) line */
 
 #define REF_START_STOP_CALIB  1 /* start/stop calibration commands */
 #define REF_MEASURE_TIMEOUT   1 /* use timeout for measurement */
@@ -401,12 +404,19 @@ byte REF_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOT
 
 static void REF_StateMachine(void) {
   int i;
-
+  SensorCalibT* stored;
   switch (refState) {
     case REF_STATE_INIT:
-      SHELL_SendString((unsigned char*)"INFO: No calibration data present.\r\n");
-      refState = REF_STATE_NOT_CALIBRATED;
-      break;
+		stored= NVMC_GetReflectanceData();
+		if (stored != NULL) {
+			SensorCalibMinMax = *stored;
+			SHELL_SendString((unsigned char*) "INFO: Callibration loaded\r\n");
+			refState = REF_STATE_READY;
+		} else {
+			SHELL_SendString((unsigned char*) "INFO: NO callibration data\r\n");
+			refState = REF_STATE_NOT_CALIBRATED;
+		}
+		break;
       
     case REF_STATE_NOT_CALIBRATED:
       REF_MeasureRaw(SensorRaw);
@@ -442,11 +452,17 @@ static void REF_StateMachine(void) {
     
     case REF_STATE_STOP_CALIBRATION:
       SHELL_SendString((unsigned char*)"...stopping calibration.\r\n");
+		if (NVMC_SaveReflectanceData((void*) &SensorCalibMinMax,sizeof(SensorCalibMinMax))==0) {
+			SHELL_SendString((unsigned char*) "INFO: callibration stored\r\n");
+		} else {
+			SHELL_SendString((unsigned char*) "INFO: Could not store callibration\r\n");
+		}
       refState = REF_STATE_READY;
       break;
         
     case REF_STATE_READY:
       REF_Measure();
+     // DRIVEFCNT_SetEVENT(DRIVEFCNT_DRIVE_IN_CIRCLE);
 #if REF_START_STOP_CALIB
       if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_START_CALIBRATION;

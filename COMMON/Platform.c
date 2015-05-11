@@ -30,6 +30,7 @@
 #include "Drive.h"
 #include "Accel.h"
 #include "RNet_App.h"
+#include "Remote.h"
 
 #if PL_HAS_SHELL
   #include "CLS1.h"

@@ -17,6 +17,12 @@
 #include "Trigger.h"
 #include "Shell.h"
 #include "RTOS.h"
+#include "RNet_AppConfig.h"
+#include "RNet_App.h"
+#include "RApp.h"
+#include "Remote.h"
+
+uint8_t val8 = 0;
 
 void APP_Start(void) {
 	// Initialize Platform
@@ -49,6 +55,8 @@ void APP_HandleEvent(EVNT_Handle event) {
 #if PL_NOF_KEYS >= 1
     case EVNT_SW1_PRESSED:
       CLS1_SendStr("SW1\r\n", CLS1_GetStdio()->stdOut);
+      val8 = 1;
+      (void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
 #if PL_HAS_BUZZER
       BUZ_Beep(300, 250);
 #endif
@@ -64,6 +72,10 @@ void APP_HandleEvent(EVNT_Handle event) {
 #if PL_NOF_KEYS >= 2
     case EVNT_SW2_PRESSED:
       CLS1_SendStr("SW2 short\r\n", CLS1_GetStdio()->stdOut);
+      val8 = 2;
+      (void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
+      REMOTE_SetOnOff(!REMOTE_GetOnOff());
+
       break;
     case EVNT_SW2_LPRESSED:
       CLS1_SendStr("SW2 long\r\n", CLS1_GetStdio()->stdOut);

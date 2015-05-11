@@ -16,14 +16,16 @@
 #include "Keys.h"
 #include "CLS1.h"
 #include "Trigger.h"
-
-
+#include "Reflectance.h"
+#include "DriveFunction.h"
+#include "Remote.h"
 
 
 
 static portTASK_FUNCTION(T1, pvParameters) {
   for(;;) {
     LED_Neg(LED_ALL);
+
     FRTOS1_vTaskDelay(100/portTICK_RATE_MS);
   }
 }
@@ -34,6 +36,11 @@ static void MainTask(void *pvParameters) {
 	for(;;){
 	KEY_Scan();
 		EVNT_HandleEvent(APP_HandleEvent);
+		#if PL_IS_ROBO
+			if(!REMOTE_GetOnOff()){
+				DRIVEFCNT_HandleEvent();
+			}
+		#endif
 		FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
 	}
 }

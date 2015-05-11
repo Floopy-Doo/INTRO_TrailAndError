@@ -14,6 +14,8 @@
 #include "FRTOS1.h"
 #include "RTOS.h"
 #include "Reflectance.h"
+#include "Drive.h"
+#include "Shell.h"
 
 /**
  * Startup code for the application.
@@ -70,6 +72,7 @@ void APP_HandleEvent(EVNT_Handle event) {
 	case EVNT_REF_START_STOP_CALIBRATION:
 		REF_CalibrateStartStop();
 		break;
+
 #if PL_NOF_KEYS >= 1
 	case EVNT_SW1_PRESSED:
 		EVNT_SetEvent(EVNT_REF_START_STOP_CALIBRATION);
