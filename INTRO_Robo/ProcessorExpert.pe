@@ -54532,7 +54532,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>99</Value>
+        <Value>103</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
@@ -54818,7 +54818,7 @@
         <ItemSymbol>Wait</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>WAIT1</Value>
+        <Value>WAIT</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>CE</ItemSymbol>

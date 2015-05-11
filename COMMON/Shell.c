@@ -104,6 +104,7 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #endif
 #if PL_HAS_RADIO
 	RNETA_ParseCommand,
+	RNET1_ParseCommand,
 #endif
 
   NULL /* Sentinel */
