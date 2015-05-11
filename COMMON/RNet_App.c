@@ -122,9 +122,16 @@ static void Process(void) {
 }
 
 static void Init(void) {
-  if (RAPP_SetThisNodeAddr(RNWK_ADDR_BROADCAST)!=ERR_OK) { /* set a default address */
-    //APP_DebugPrint((unsigned char*)"ERR: Failed setting node address\r\n");
-  }
+#if PL_IS_ROBO
+	if (RAPP_SetThisNodeAddr(PL_RNET_ROBO_ADDR)!=ERR_OK) { /* set a default address */
+	    APP_DebugPrint((unsigned char*)"ERR: Failed setting node address\r\n");
+	 }
+#endif
+#if PL_IS_FRDM
+	if (RAPP_SetThisNodeAddr(PL_RNET_FDRM_ADDR)!=ERR_OK) { /* set a default address */
+		    APP_DebugPrint((unsigned char*)"ERR: Failed setting node address\r\n");
+	}
+#endif
 }
 
 static portTASK_FUNCTION(RadioTask, pvParameters) {

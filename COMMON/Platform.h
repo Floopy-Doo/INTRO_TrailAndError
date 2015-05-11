@@ -91,6 +91,11 @@
 /*!< Set to 1 if using Accelometer Sensor, 0 otherwise */
 #define PL_HAS_RADIO		(1)
 
+/*!< Set Networkaddr of robo */
+#define PL_RNET_ROBO_ADDR	0xC3
+/*!< Set Networkaddr of fdrm */
+#define PL_RNET_FDRM_ADDR	0xC4
+
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM
   #define PL_KEY_POLLED_KEY1    (0)
