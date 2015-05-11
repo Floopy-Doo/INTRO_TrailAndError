@@ -19,4 +19,10 @@ void APP_Start(void);
 
 void APP_HandleEvent(EVNT_Handle event);
 
+/*!
+ * \brief Prints a debugging string to the shell
+ * \param str String to be printed.
+ */
+void APP_DebugPrint(unsigned char *str);
+
 #endif /* APPLICATION_H_ */

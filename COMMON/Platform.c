@@ -105,8 +105,6 @@ void PL_Init(void) {
 #if PL_HAS_RADIO
   RNETA_Init();
 #endif
-
-
 }
 
 void PL_Deinit(void) {
