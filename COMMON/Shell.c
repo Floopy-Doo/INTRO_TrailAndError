@@ -53,7 +53,9 @@
 #if PL_HAS_RADIO
 	#include "RNet_App.h"
 #endif
-
+#if PL_HAS_REMOTE
+	#include "Remote.h"
+#endif
 
 
 /* forward declaration */
@@ -105,6 +107,9 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #if PL_HAS_RADIO
 	RNETA_ParseCommand,
 	RNET1_ParseCommand,
+#endif
+#if PL_HAS_REMOTE
+  REMOTE_ParseCommand,
 #endif
 
   NULL /* Sentinel */
