@@ -90,6 +90,11 @@
 #define PL_HAS_ACCEL 		(1)
 /*!< Set to 1 if using Accelometer Sensor, 0 otherwise */
 #define PL_HAS_RADIO		(1)
+/*!< Set to 1 if using Radio, 0 otherwise */
+#define PL_HAS_REMOTE 		(1)
+/*!< Set to 1 if using Remote Sensor, 0 otherwise */
+#define PL_APP_ACCEL_CONTROL_SENDER (1 && PL_IS_FRDM)
+/*!< Set to 1 if using Remote Sensor, 0 otherwise */
 
 /* if keys are using interrupts or are polled */
 #if PL_IS_FRDM

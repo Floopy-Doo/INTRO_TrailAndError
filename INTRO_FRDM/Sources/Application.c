@@ -24,8 +24,14 @@ void APP_Start(void) {
 	KEY_EnableInterrupts();
 	CLS1_Init();
 	RTOS_Run();
-
 }
+
+void APP_DebugPrint(unsigned char *str) {
+#if PL_HAS_SHELL
+  SHELL_SendString(str);
+#endif
+}
+
 
 void APP_HandleEvent(EVNT_Handle event) {
 	switch (event) {
