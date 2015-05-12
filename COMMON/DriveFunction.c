@@ -94,7 +94,7 @@ void DRIVEFCNT_HandleEvent(void) {
 */
 		case DRIVEFCNT_SEARCH_FOR_ENEMYS:
 			 while((REF_GetLineValue()<=5)&&(event == DRIVEFCNT_SEARCH_FOR_ENEMYS)){
-				if((cm < 100) && (cm > 0)){
+				if((cm < 70) && (cm > 0)){
 					DRV_SetSpeed(DRIVESPEED,DRIVESPEED);
 				}
 				else{
