@@ -28,6 +28,7 @@ uint8_t DRV_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_Std
  * \param enable TRUE to enable, FALSE otherwise.
  */
 void DRV_EnableDisable(bool enable);
+bool DRV_isEnabled(void);
 
 /*!
  * \brief Sets the driving speed for left and right.

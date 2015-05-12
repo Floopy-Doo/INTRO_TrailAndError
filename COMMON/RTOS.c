@@ -19,13 +19,47 @@
 #include "Reflectance.h"
 #include "DriveFunction.h"
 #include "Remote.h"
+#include "Shell.h"
+#include "Accel.h"
 
 
 
 static portTASK_FUNCTION(T1, pvParameters) {
+	 uint8_t buf[64];
+	 uint16_t x;
+	 uint16_t y;
+	 uint16_t z;
+	 static bool driveState =1;
+
   for(;;) {
     LED_Neg(LED_ALL);
+    /*SHELL_SendString((unsigned char*)"\nUltrasonic Distance:");
+    UTIL1_Num16uToStr(buf, sizeof(buf), US_GetLastCentimeterValue());
+    SHELL_SendString((unsigned char*) buf);
+*/
+  /*  ACCEL_GetValues(&x,&y,&z);
+    SHELL_SendString((unsigned char*)"\nAccel \tx:");
+    UTIL1_Num16sToStr(buf, sizeof(buf), x);
+    SHELL_SendString((unsigned char*) buf);
 
+    SHELL_SendString((unsigned char*)" \ty:");
+    UTIL1_Num16sToStr(buf, sizeof(buf), y);
+    SHELL_SendString((unsigned char*) buf);
+
+    SHELL_SendString((unsigned char*)"\tz:");
+    UTIL1_Num16sToStr(buf, sizeof(buf), z);
+    SHELL_SendString((unsigned char*) buf);
+*/
+
+
+
+    if(checkUpsideDown()){
+    	driveState = DRV_isEnabled();
+    	DRV_EnableDisable(FALSE);
+    } else {
+
+    	DRV_EnableDisable(TRUE);
+    }
     FRTOS1_vTaskDelay(100/portTICK_RATE_MS);
   }
 }
@@ -33,6 +67,8 @@ static portTASK_FUNCTION(T1, pvParameters) {
 
 static void MainTask(void *pvParameters) {
 	(void)pvParameters;
+	(void)ACCEL_LowLevelInit();
+
 	for(;;){
 	KEY_Scan();
 		EVNT_HandleEvent(APP_HandleEvent);
@@ -41,7 +77,7 @@ static void MainTask(void *pvParameters) {
 				DRIVEFCNT_HandleEvent();
 			}
 		#endif
-		FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
+		FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
 	}
 }
 

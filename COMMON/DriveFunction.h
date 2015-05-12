@@ -13,6 +13,7 @@
 #include "Reflectance.h"
 #include "Ultrasonic.h"
 #include "Wait.h"
+#include "Accel.h"
 
 typedef enum DRIVEFCNT_Handle {
 	DRIVEFCNT_STARTUP,
@@ -26,6 +27,7 @@ void DRIVEFCNT_SetEVENT(DRIVEFCNT_Handle event);
 DRIVEFCNT_Handle DRIVEFCNT_GetEVENT(void);
 void DRIVEFCNT_DriveJeanette(void);
 void checkLine(void);
+bool checkUpsideDown(void);
 
 #endif /* DRIVEFUNCTION_H_ */
 #endif

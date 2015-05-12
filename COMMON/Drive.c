@@ -23,6 +23,10 @@ void DRV_EnableDisable(bool enable) {
   DRV_SpeedOn = enable;
 }
 
+bool DRV_isEnabled(void) {
+   return DRV_SpeedOn;
+}
+
 void DRV_SetSpeed(int32_t left, int32_t right) {
   DRV_SpeedLeft = left;
   DRV_SpeedRight = right;
