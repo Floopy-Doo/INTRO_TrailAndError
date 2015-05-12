@@ -26,6 +26,7 @@
   #include "Remote.h"
 #endif
 #include "DriveFunction.h"
+#include "Drive.h"
 
 static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 
@@ -73,25 +74,34 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 
       switch (val)
       {
-		case 1:
+		case 2:
+			// Remote ein/aus
 		  REMOTE_SetOnOff(!REMOTE_GetOnOff());
 		  val = 0;
 		break;
 
-		case 2:
-		  if(DRIVEFCNT_GetEVENT() != DRIVEFCNT_SEARCH_FOR_ENEMYS){
+		case 1:
+			// Notaus
+			DRIVEFCNT_SetEVENT(DRIVEFCNT_STARTUP);
+			DRV_EnableDisable(FALSE);
+			val = 0;
+
+		  /*if(DRIVEFCNT_GetEVENT() != DRIVEFCNT_SEARCH_FOR_ENEMYS){
 			  DRIVEFCNT_SetEVENT(DRIVEFCNT_SEARCH_FOR_ENEMYS);
 			  val = 0;
-		  }
-		  else{
+		  } else{
 			  DRIVEFCNT_SetEVENT(DRIVEFCNT_STARTUP);
 			  val = 0;
-		  }
-		break;
+		  }*/
+			break;
+
+		case 3:
+			DRV_EnableDisable(TRUE);
+			val = 0;
+			break;
 
 		default:
-
-		break;
+			break;
       }
 #endif
 

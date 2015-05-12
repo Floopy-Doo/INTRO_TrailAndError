@@ -54,56 +54,58 @@ void APP_HandleEvent(EVNT_Handle event) {
       break;
 #if PL_NOF_KEYS >= 1
     case EVNT_SW1_PRESSED:
-      CLS1_SendStr("SW1\r\n", CLS1_GetStdio()->stdOut);
-      val8 = 1;
-      (void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
-#if PL_HAS_BUZZER
-      BUZ_Beep(300, 250);
-#endif
+      CLS1_SendStr("A short\r\n", CLS1_GetStdio()->stdOut);
+      // Remote ein/aus
+      val8 = 2;
+     (void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
+      REMOTE_SetOnOff(!REMOTE_GetOnOff());
+
       break;
     case EVNT_SW1_LPRESSED:
-      CLS1_SendStr("SW1 long\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("A long\r\n", CLS1_GetStdio()->stdOut);
       break;
     case EVNT_SW1_RELEASED:
-      CLS1_SendStr("SW1 release\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("A released\r\n", CLS1_GetStdio()->stdOut);
       break;
       break;
 #endif
 #if PL_NOF_KEYS >= 2
     case EVNT_SW2_PRESSED:
-      CLS1_SendStr("SW2 short\r\n", CLS1_GetStdio()->stdOut);
-      val8 = 2;
+      CLS1_SendStr("B short\r\n", CLS1_GetStdio()->stdOut);
+      // Notstop
+      val8 = 1;
       (void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
-      REMOTE_SetOnOff(!REMOTE_GetOnOff());
-
       break;
     case EVNT_SW2_LPRESSED:
-      CLS1_SendStr("SW2 long\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("B long\r\n", CLS1_GetStdio()->stdOut);
       break;
     case EVNT_SW2_RELEASED:
-      CLS1_SendStr("SW2 release\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("B released\r\n", CLS1_GetStdio()->stdOut);
       break;
 #endif
 #if PL_NOF_KEYS >= 3
     case EVNT_SW3_PRESSED:
-      CLS1_SendStr("SW3\r\n", CLS1_GetStdio()->stdOut);
-      break;
+      CLS1_SendStr("C short\r\n", CLS1_GetStdio()->stdOut);
+      // Motor ein
+		val8 = 3;
+		(void)RAPP_SendPayloadDataBlock(&val8, sizeof(val8), RAPP_MSG_TYPE_DATA, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_NONE); /* only send low byte */
+		break;
     case EVNT_SW3_LPRESSED:
-      CLS1_SendStr("SW3 long\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("C long\r\n", CLS1_GetStdio()->stdOut);
       break;
     case EVNT_SW3_RELEASED:
-      CLS1_SendStr("SW3 release\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("C released\r\n", CLS1_GetStdio()->stdOut);
       break;
 #endif
 #if PL_NOF_KEYS >= 4
     case EVNT_SW4_PRESSED:
-      CLS1_SendStr("SW4\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("D short\r\n", CLS1_GetStdio()->stdOut);
       break;
     case EVNT_SW4_LPRESSED:
-      CLS1_SendStr("SW4 long\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("D long\r\n", CLS1_GetStdio()->stdOut);
       break;
     case EVNT_SW4_RELEASED:
-      CLS1_SendStr("SW4 release\r\n", CLS1_GetStdio()->stdOut);
+      CLS1_SendStr("D released\r\n", CLS1_GetStdio()->stdOut);
       break;
 #endif
 #if PL_NOF_KEYS >= 5

@@ -52,7 +52,7 @@ static portTASK_FUNCTION(T1, pvParameters) {
 */
 
 
-
+#if PL_HAS_DRIVE
     if(checkUpsideDown()){
     	driveState = DRV_isEnabled();
     	DRV_EnableDisable(FALSE);
@@ -60,6 +60,7 @@ static portTASK_FUNCTION(T1, pvParameters) {
 
     	DRV_EnableDisable(TRUE);
     }
+#endif
     FRTOS1_vTaskDelay(100/portTICK_RATE_MS);
   }
 }
@@ -70,8 +71,18 @@ static void MainTask(void *pvParameters) {
 	(void)ACCEL_LowLevelInit();
 
 	for(;;){
-	KEY_Scan();
+		KEY_Scan();
 		EVNT_HandleEvent(APP_HandleEvent);
+		if(!REMOTE_GetOnOff()){
+			DRIVEFCNT_HandleEvent();
+		}
+		FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
+	}
+}
+
+static void FightTask(void *pvParameters) {
+	(void)pvParameters;
+	for(;;){
 		#if PL_IS_ROBO
 			if(!REMOTE_GetOnOff()){
 				DRIVEFCNT_HandleEvent();
@@ -86,7 +97,9 @@ void RTOS_Run(void) {
 	if (FRTOS1_xTaskCreate(MainTask,"Main",configMINIMAL_STACK_SIZE+100,(void*)NULL,tskIDLE_PRIORITY,(xTaskHandle*)NULL) != pdPASS){
 		for(;;){}/* error */
 	}
-
+	//if (FRTOS1_xTaskCreate(FightTask,"Fight",configMINIMAL_STACK_SIZE+100,(void*)NULL,tskIDLE_PRIORITY,(xTaskHandle*)NULL) != pdPASS){
+	//	for(;;){}/* error */
+	//}
 	FRTOS1_vTaskStartScheduler();
 }
 

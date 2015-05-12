@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>INTRO_FRDM</Name>
-    <SavedBy>Roman</SavedBy>
-    <ModificationStamp>47</ModificationStamp>
-    <Date>2015-05-11</Date>
+    <SavedBy>Philipp Gosswiler</SavedBy>
+    <ModificationStamp>48</ModificationStamp>
+    <Date>2015-05-12</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.10.1.RT6_b1444-1070</PEversion>
   </Header>
@@ -29006,7 +29006,7 @@
     <UserFolderName>Referenced_Components</UserFolderName>
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.109</BeanVersion>
+    <BeanVersion>01.106</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -38350,7 +38350,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>103</Value>
+        <Value>89</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>

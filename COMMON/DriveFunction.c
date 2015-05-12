@@ -6,6 +6,7 @@
  */
 #include "Platform.h"
 #include "DriveFunction.h"
+#include "Remote.h"
 
 
 
@@ -13,10 +14,11 @@
 uint16_t test = 0;
 uint16_t us;
 uint16_t cm;
-#define DRIVESPEED 0x1500
-#define TURNSPEED  0x500
+#define DRIVESPEED	0x1500
+#define TURNSPEED	0x0600
+#define BACKSPEED	0x1000
 
-DRIVEFCNT_Handle event = DRIVEFCNT_STARTUP;
+static volatile DRIVEFCNT_Handle event = DRIVEFCNT_STARTUP;
 
 void  DRIVEFCNT_SetEVENT(DRIVEFCNT_Handle aevent){
 	event = aevent;
@@ -34,16 +36,18 @@ void DRIVEFCNT_DriveJeanette(void){
 }
 
 void checkLine(void){
-	if((REF_GetLineValue()<=3000)&& (REF_GetLineValue()>0)){
-		DRV_SetSpeed(0x00,-TURNSPEED);
-		WAIT_Waitms(100);
+	uint16_t value = REF_GetLineValue();
+	if((value <= 3000) && (value > 0)){
+		DRV_SetSpeed(-BACKSPEED / 2,-BACKSPEED);
+		WAIT_WaitOSms(250);
 	}
-	else if(REF_GetLineValue()>=4000){
-		DRV_SetSpeed(-TURNSPEED,0x00);
-		WAIT_Waitms(100);
+	else if(value >= 4000){
+		DRV_SetSpeed(-BACKSPEED,-BACKSPEED / 2);
+		WAIT_WaitOSms(250);
 	}
-	else if(REF_GetLineValue()==3500){
-		DRV_SetSpeed(-DRIVESPEED,-DRIVESPEED);
+	else if(value == 3500) {//value > 3000 && value < 4000){
+		DRV_SetSpeed(-BACKSPEED,-BACKSPEED);
+		WAIT_WaitOSms(250);
 	}
 }
 
@@ -70,6 +74,7 @@ void DRIVEFCNT_HandleEvent(void) {
 		case DRIVEFCNT_STARTUP:
 			//event = DRIVEFCNT_SEARCH_FOR_ENEMYS;
 			DRV_SetSpeed(0,0);
+			REMOTE_SetOnOff(TRUE);
 		break;
 
 /*		case DRIVEFCNT_DRIVE_IN_CIRCLE:
@@ -93,12 +98,13 @@ void DRIVEFCNT_HandleEvent(void) {
 		break;
 */
 		case DRIVEFCNT_SEARCH_FOR_ENEMYS:
-			 while((REF_GetLineValue()<=5)&&(event == DRIVEFCNT_SEARCH_FOR_ENEMYS)){
-				if((cm < 70) && (cm > 0)){
-					DRV_SetSpeed(DRIVESPEED,DRIVESPEED);
+			 while((REF_GetLineValue() == 0) && (event == DRIVEFCNT_SEARCH_FOR_ENEMYS)){
+
+				if((cm < 65) && (cm > 0)){
+					DRV_SetSpeed(DRIVESPEED, DRIVESPEED);
 				}
 				else{
-				   DRV_SetSpeed(TURNSPEED,-TURNSPEED);
+				   DRV_SetSpeed(TURNSPEED, -TURNSPEED);
 				}
 				cm = US_usToCentimeters(US_Measure_us(), 22);
 			 }

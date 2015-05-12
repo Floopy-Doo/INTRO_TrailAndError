@@ -15,7 +15,9 @@
 #include "RTOS.h"
 #include "Reflectance.h"
 #include "Drive.h"
+#include "DriveFunction.h"
 #include "Shell.h"
+#include "Remote.h"
 
 /**
  * Startup code for the application.
@@ -75,11 +77,27 @@ void APP_HandleEvent(EVNT_Handle event) {
 
 #if PL_NOF_KEYS >= 1
 	case EVNT_SW1_PRESSED:
-		EVNT_SetEvent(EVNT_REF_START_STOP_CALIBRATION);
-		LED_On(LED_FRONT_LEFT);
-		CLS1_SendStr("Button Pressed: Hello you :P! \r\n",
-				CLS1_GetStdio()->stdOut);
-		LED_Off(LED_FRONT_LEFT);
+		//EVNT_SetEvent(EVNT_REF_START_STOP_CALIBRATION);
+		  REMOTE_SetOnOff(FALSE);
+		  if(DRIVEFCNT_GetEVENT() != DRIVEFCNT_SEARCH_FOR_ENEMYS){
+			  WAIT_WaitOSms(1000);
+			  BUZ_Beep(250, 500);
+			  WAIT_WaitOSms(1000);
+			  BUZ_Beep(250, 500);
+			  WAIT_WaitOSms(1000);
+			  BUZ_Beep(250, 500);
+			  WAIT_WaitOSms(1000);
+			  BUZ_Beep(250, 500);
+			  WAIT_WaitOSms(1000);
+			  BUZ_Beep(500, 500);
+			  DRIVEFCNT_SetEVENT(DRIVEFCNT_SEARCH_FOR_ENEMYS);
+		  } else {
+			  DRIVEFCNT_SetEVENT(DRIVEFCNT_STARTUP);
+			  //REMOTE_SetOnOff(TRUE);
+		  }
+		  break;
+	case EVNT_SW1_LPRESSED:
+		REF_CalibrateStartStop();
 		break;
 #endif
 
